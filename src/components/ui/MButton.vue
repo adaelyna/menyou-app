@@ -4,7 +4,7 @@
 
 <script setup>
 const props = defineProps({
-    label: { type: String, required: false, default: 'Submit' },
+    label: { type: String, required: false, default: 'Submit' }
 })
 </script>
 
