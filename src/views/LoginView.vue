@@ -3,7 +3,7 @@
         <div class="container">
             <h1>Авторизация</h1>
             <LoginForm />
-            <MButton :label="'Открыть модалку'" @click="openModal" />
+            <MButton :label="'Открыть модальное окно'" @click="openModal" />
             <div v-if="isOpen" class="box">
                 <div class="close" @click="closeModal">x</div>
                 Some content here
