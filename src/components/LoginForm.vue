@@ -3,7 +3,7 @@
         <div class="form-card">
             <input type="text" placeholder="Логин" />
             <input type="password" placeholder="Пароль" />
-            <MButton label="Войти" />
+            <MButton label="Войти" color="primary" full />
         </div>
     </div>
 </template>

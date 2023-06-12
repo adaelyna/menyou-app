@@ -2,10 +2,25 @@
     <main>
         <h1>Home page</h1>
         <RouterLink to="/users" class="link"> Пользователи </RouterLink>
+
         <div class="buttons">
-            <MButton :label="'Авторизация'" @click="router.push('/login')" />
-            <MButton :label="'Открыть модальное окно'" @click="openModal" />
+            <MButton label="Авторизация" @click="router.push('/login')" />
+            <MButton label="Открыть модальное окно" @click="openModal" />
         </div>
+        
+        <div class="buttons-group">
+            <MButton label="Кнопка" size="big" />
+            <MButton label="Кнопка" color="primary" />
+            <MButton label="Кнопка" size="small" color="secondary" />
+            <MButton label="Кнопка" color="success" />
+            <MButton label="Кнопка" color="error" />
+            <MButton label="Кнопка" color="warning" />
+            <MButton label="Кнопка" />
+            <MButton label="Кнопка" />
+            <MInput type="text" placeholder="Логин" />
+            <MInput type="password" placeholder="Пароль" />
+        </div>
+
         <div v-if="isOpen" class="box">
             <div class="close" @click="closeModal">x</div>
             Some content here Some content here Some content here Some content here
@@ -76,5 +91,13 @@ const router = useRouter()
     align-items: center;
     gap: 20px;
     padding: 0 10px;
+}
+
+.buttons-group {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 20px;
 }
 </style>

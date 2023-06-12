@@ -1,27 +1,42 @@
 <template>
-    <button class="btn primary">{{ label }}</button>
+    <button :class="['btn', size, color, full ? 'full' : '']">{{ label }}</button>
 </template>
 
 <script setup>
 defineProps({
+    full: { type: Boolean, required: false, default: false },
+    color: { type: String, required: false, default: '' },
+    size: { type: String, required: false, default: 'medium' },
     label: { type: String, required: false, default: 'Submit' }
 })
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .btn {
     display: block;
     border: 0;
     outline: 0;
     border-radius: 8px;
-    padding: 10px 30px;
-    font-size: 14px;
-    line-height: 14px;
+    padding: 11px 30px;
+    font-size: 16px;
+    line-height: 16px;
     transition: all .6s;
     cursor: pointer;
 
     &:hover {
         background-color: #a3a3a3;
+    }
+
+    &.big {
+        padding: 16px 40px;
+        font-size: 18px;
+        line-height: 18px;
+    }
+
+    &.small {
+        padding: 8px 20px;
+        font-size: 12px;
+        line-height: 12px;
     }
 
     &.primary {
@@ -31,6 +46,46 @@ defineProps({
         &:hover {
             background-color: #0520d2;
         }
+    }
+
+    &.secondary {
+        background-color: #3b48a1;
+        color: #fff;
+
+        &:hover {
+            background-color: #2a3684;
+        }
+    }
+
+    &.success {
+        background-color: green;
+        color: #fff;
+
+        &:hover {
+            background-color: rgb(1, 84, 1);
+        }
+    }
+
+    &.error {
+        background-color: red;
+        color: #fff;
+
+        &:hover {
+            background-color: tomato;
+        }
+    }
+
+    &.warning {
+        background-color: orange;
+        color: #fff;
+
+        &:hover {
+            background-color: rgb(181, 117, 0);
+        }
+    }
+
+    &.full {
+        width: 100%;
     }
 }
 </style>
