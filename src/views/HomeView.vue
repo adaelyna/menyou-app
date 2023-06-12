@@ -16,7 +16,6 @@
             <MButton label="Кнопка" color="warning" />
             <MButton label="Кнопка" />
             <MButton label="Кнопка" />
-
         </div>
 
         <div v-if="isOpen" class="box">
