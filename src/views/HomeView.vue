@@ -17,8 +17,6 @@
             <MButton label="Кнопка" color="warning" />
             <MButton label="Кнопка" />
             <MButton label="Кнопка" />
-            <MInput type="text" placeholder="Логин" />
-            <MInput type="password" placeholder="Пароль" />
         </div>
 
         <div v-if="isOpen" class="box">
@@ -96,8 +94,14 @@ const router = useRouter()
 .buttons-group {
     display: flex;
     align-items: center;
+<<<<<<< HEAD
     flex-wrap: wrap;
     gap: 16px;
     padding: 20px;
+=======
+    gap: 16px;
+    padding: 20px;
+    flex-wrap: wrap;
+>>>>>>> 940a7b0b42e019b3e7136506ab67ee4fd72475b4
 }
 </style>
