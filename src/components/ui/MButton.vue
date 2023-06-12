@@ -3,14 +3,14 @@
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
     label: { type: String, required: false, default: 'Submit' }
 })
 </script>
 
 <style lang="scss">
 .btn {
-    display: inline-block;
+    display: block;
     border: 0;
     outline: 0;
     border-radius: 8px;
