@@ -2,11 +2,12 @@
     <main>
         <h1>Home page</h1>
         <RouterLink to="/users" class="link"> Пользователи </RouterLink>
+
         <div class="buttons">
             <MButton label="Авторизация" @click="router.push('/login')" />
             <MButton label="Открыть модальное окно" @click="openModal" />
         </div>
-
+        
         <div class="buttons-group">
             <MButton label="Кнопка" size="big" />
             <MButton label="Кнопка" color="primary" />
@@ -93,8 +94,8 @@ const router = useRouter()
 .buttons-group {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 16px;
     padding: 20px;
-    flex-wrap: wrap;
 }
 </style>

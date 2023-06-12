@@ -1,5 +1,5 @@
 <template>
-    <button :class="['btn', size, color, full ? 'full' : '']">{{ label }} </button>
+    <button :class="['btn', size, color, full ? 'full' : '']">{{ label }}</button>
 </template>
 
 <script setup>
@@ -62,7 +62,7 @@ defineProps({
         color: #fff;
 
         &:hover {
-            background-color: rgb(1, 81, 1);
+            background-color: rgb(1, 84, 1);
         }
     }
 
@@ -71,7 +71,7 @@ defineProps({
         color: #fff;
 
         &:hover {
-            background-color: tomato
+            background-color: tomato;
         }
     }
 
@@ -80,7 +80,7 @@ defineProps({
         color: #fff;
 
         &:hover {
-            background-color: rgb(181, 117, 0)
+            background-color: rgb(181, 117, 0);
         }
     }
 
