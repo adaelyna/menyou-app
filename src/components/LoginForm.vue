@@ -4,12 +4,15 @@
             <input type="text" placeholder="Логин" />
             <input type="password" placeholder="Пароль" />
             <MButton label="Войти" color="primary" full />
+            <MInput placeholder="Логин"/>
+            <MInput placeholder="Пароль"/>
         </div>
     </div>
 </template>
 
 <script setup>
 import MButton from './ui/MButton.vue'
+import MInput from './ui/Minput.vue'
 </script>
 
 <style scoped>
