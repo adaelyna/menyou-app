@@ -1,7 +1,7 @@
 <template>
     <div class="login-form">
         <div class="form-card">
-            <MInput placeholder="Логин" type/>
+            <MInput placeholder="Логин"/>
             <MInput placeholder="Пароль" type="password"/>  
             <MButton label="Войти" color="primary" />
         </div>
