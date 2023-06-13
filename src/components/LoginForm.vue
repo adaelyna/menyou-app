@@ -1,11 +1,9 @@
 <template>
     <div class="login-form">
         <div class="form-card">
-            <input type="text" placeholder="Логин" />
-            <input type="password" placeholder="Пароль" />
-            <MButton label="Войти" color="primary" full />
-            <MInput placeholder="Логин"/>
-            <MInput placeholder="Пароль"/>
+            <MInput placeholder="Логин" type/>
+            <MInput placeholder="Пароль" type="password"/>  
+            <MButton label="Войти" color="primary" />
         </div>
     </div>
 </template>
@@ -15,7 +13,7 @@ import MButton from './ui/MButton.vue'
 import MInput from './ui/Minput.vue'
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .login-form {
     display: flex;
     justify-content: center;
@@ -27,5 +25,9 @@ import MInput from './ui/Minput.vue'
     max-width: 400px;
     border-radius: 16px;
     background-color: #fff;
+
+    input {
+        margin-bottom: 10px;
+    }
 }
 </style>
