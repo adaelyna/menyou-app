@@ -23,7 +23,6 @@ defineProps({
 
     &:focus {
         outline: 1px solid #0828fe;
-        // border: 1px solid tomato;
     }
 
     &.placeholder {
