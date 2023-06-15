@@ -14,11 +14,11 @@
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-import MButton from './ui/MButton.vue'
-import MInput from './ui/MInput.vue'
-import MLoader from './ui/MLoader.vue'
-import authApi from '../api/auth'
-import { useAuth } from '../stores/auth'
+import MButton from '../ui/MButton.vue'
+import MInput from '../ui/Minput.vue'
+import MLoader from '../ui/MLoader.vue'
+import authApi from '../../api/auth'
+import { useAuth } from '../../stores/auth'
 
 const router = useRouter()
 const isLoading = ref(false)

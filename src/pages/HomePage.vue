@@ -1,7 +1,8 @@
 <template>
     <main>
+        <MHeader />
         <h1>Home page</h1>
-        <h2>{{ user.firstname }} {{ user.lastname }}</h2>
+        <h2 v-if="user">{{ user.firstname }} {{ user.lastname }}</h2>
         <RouterLink to="/users" class="link"> Пользователи </RouterLink>
 
         <div class="buttons">
@@ -24,6 +25,7 @@
             <div class="close" @click="closeModal">x</div>
             Some content here Some content here Some content here Some content here
         </div>
+        <MFooter />
     </main>
 </template>
 
@@ -32,6 +34,8 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import MButton from '../components/ui/MButton.vue'
+import MHeader from '../components/layout/MHeader.vue'
+import MFooter from '../components/layout/MFooter.vue'
 import { useAuth } from '../stores/auth'
 
 const { user } = useAuth()
