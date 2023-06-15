@@ -8,8 +8,8 @@ export const useAuth = defineStore('auth', () => {
         user.value = payload
     }
 
-    return { 
+    return {
         user,
         setUser
-     }
+    }
 })
