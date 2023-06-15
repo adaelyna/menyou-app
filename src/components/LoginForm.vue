@@ -1,10 +1,10 @@
 <template>
     <div class="login-form">
+        <MLoader v-if="isLoading" full />
         <div class="form-card">
             <h2 class="login-form__title" >Авторизация</h2>
             <MInput v-model="form.username" placeholder="Логин" />
             <MInput v-model="form.password" placeholder="Пароль" type="password" />  
-            <MLoader v-if="isLoading" />
             <MButton label="Войти" color="primary" @click="submit" />
         </div>
     </div>
