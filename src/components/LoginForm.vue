@@ -1,10 +1,10 @@
 <template>
     <div class="login-form">
+        <MLoader v-if="isLoading" full />
         <div class="form-card">
-            <h2 class="login-form__title">Авторизация</h2>
+            <h2 class="login-form__title" >Авторизация</h2>
             <MInput v-model="form.username" placeholder="Логин" />
             <MInput v-model="form.password" placeholder="Пароль" type="password" />  
-            <MLoader v-if="isLoading" />
             <MButton label="Войти" color="primary" @click="submit" />
         </div>
     </div>
@@ -15,7 +15,7 @@ import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import MButton from './ui/MButton.vue'
-import MInput from './ui/Minput.vue'
+import MInput from './ui/MInput.vue'
 import MLoader from './ui/MLoader.vue'
 import authApi from '../api/auth'
 
@@ -28,33 +28,33 @@ const form = reactive({
 })
 
 const submit = () => {
-    console.log('submit!')
+    console.log('submit');
     isLoading.value = true
-    authApi
-        .login({
-            ...form
+    authApi.login({
+        ...form
+    })
+    .then(({ data }) => {
+        console.log('data', data)
+        router.push({
+            name: 'home'
         })
-        .then(({ data }) => {
-            console.log('data', data)
-            router.push({
-                name: 'home'
-            })
-        })
-        .catch((e) => {
-            console.log('error', e)
-        })
-        .finally(() => {
-            isLoading.value = false
-        })
+    })
+    .catch((e) => {
+        console.log('error', e);
+    })
+    .finally(() => {
+        isLoading.value = false
+    })
 }
-</script>
+ </script>
 
 <style scoped lang="scss">
+
 .login-form {
     &__title {
-        font-size: 20px;
-        font-weight: 600;
         margin-bottom: 16px;
+        font-weight: 600;
+        font-size: 20px;
     }
 }
 .form-card {
