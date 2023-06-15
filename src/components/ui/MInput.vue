@@ -1,10 +1,11 @@
 <template>
-    <input 
-    :type="type" 
-    :class="['input', color]" 
-    :placeholder="placeholder" 
-    :value="modelValue"
-    @input = "handleInput" />
+    <input
+        :type="type"
+        :class="['input', color]"
+        :placeholder="placeholder"
+        :value="modelValue"
+        @input="handleInput"
+    />
 </template>
 
 <script setup>
