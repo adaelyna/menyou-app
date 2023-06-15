@@ -1,6 +1,7 @@
 <template>
     <main>
         <h1>Home page</h1>
+        <h2>{{ user.firstname }} {{ user.lastname }}</h2>
         <RouterLink to="/users" class="link"> Пользователи </RouterLink>
 
         <div class="buttons">
@@ -31,6 +32,9 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import MButton from '../components/ui/MButton.vue'
+import { useAuth } from '../stores/auth'
+
+const { user } = useAuth()
 
 const isOpen = ref(false)
 
