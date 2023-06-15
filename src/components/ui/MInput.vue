@@ -1,13 +1,27 @@
 <template>
-    <input :type="type" :class="['input', color]" :placeholder="placeholder">
+    <input 
+    :type="type" 
+    :class="['input', color]" 
+    :placeholder="placeholder" 
+    :value="modelValue"
+    @input = "handleInput" />
 </template>
 
 <script setup>
 defineProps({
+    modelValue: { type: [String, Number], required: true },
     placeholder: { type: String, required: false, default: '' },
     color: { type: String, required: false, default: '' },
     type: { type: String, required: false, default: 'text' }
 })
+
+const emit = defineEmits(['update:modelValue'])
+
+const handleInput = (e) => {
+    const value = e.target.value
+
+    emit('update:modelValue', value)
+}
 </script>
 
 <style scoped lang="scss">
