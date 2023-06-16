@@ -1,32 +1,28 @@
 <template>
-    <main>
-        <MHeader />
-        <h1>Home page</h1>
-        <h2 v-if="user">{{ user.firstname }} {{ user.lastname }}</h2>
-        <RouterLink to="/users" class="link"> Пользователи </RouterLink>
+    <div class="home-page">
+        <div class="container">
+            <div class="buttons">
+                <MButton @click="router.push('/login')">Авторизация</MButton>
+                <MButton @click="openModal">Открыть модальное окно</MButton>
+            </div>
 
-        <div class="buttons">
-            <MButton label="Авторизация" @click="router.push('/login')" />
-            <MButton label="Открыть модальное окно" @click="openModal" />
-        </div>
-        
-        <div class="buttons-group">
-            <MButton label="Кнопка" size="big" />
-            <MButton label="Кнопка" color="primary" />
-            <MButton label="Кнопка" size="small" color="secondary" />
-            <MButton label="Кнопка" color="success" />
-            <MButton label="Кнопка" color="error" />
-            <MButton label="Кнопка" color="warning" />
-            <MButton label="Кнопка" />
-            <MButton label="Кнопка" />
-        </div>
+            <div class="buttons-group">
+                <MButton size="big" />
+                <MButton color="primary" />
+                <MButton size="small" color="secondary" />
+                <MButton color="success" />
+                <MButton color="error" />
+                <MButton color="warning" />
+                <MButton />
+                <MButton />
+            </div>
 
-        <div v-if="isOpen" class="box">
-            <div class="close" @click="closeModal">x</div>
-            Some content here Some content here Some content here Some content here
+            <div v-if="isOpen" class="box">
+                <div class="close" @click="closeModal">x</div>
+                Some content here Some content here Some content here Some content here
+            </div>
         </div>
-        <MFooter />
-    </main>
+    </div>
 </template>
 
 <script setup>
@@ -34,8 +30,6 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import MButton from '../components/ui/MButton.vue'
-import MHeader from '../components/layout/MHeader.vue'
-import MFooter from '../components/layout/MFooter.vue'
 import { useAuth } from '../stores/auth'
 
 const { user } = useAuth()
@@ -54,6 +48,9 @@ const router = useRouter()
 </script>
 
 <style scoped lang="scss">
+.home-page {
+    padding: 30px;
+}
 .link {
     text-decoration: none;
     color: #bebebe;

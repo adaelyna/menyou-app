@@ -3,9 +3,7 @@
         <div class="container">
             <div class="header__inner">
                 <div class="logo">
-                    <RouterLink to="/">
-                        menyou
-                    </RouterLink>
+                    <RouterLink to="/"> menyou </RouterLink>
                 </div>
                 <ul class="header-menu">
                     <li class="header-menu__item">
@@ -21,13 +19,15 @@
                         <a href="#" class="header-menu__link">Role</a>
                     </li>
                 </ul>
-                <!-- <MUserProfile /> -->
+                <MUserProfile color="transparent" />
             </div>
         </div>
     </header>
 </template>
 
-<script setup></script>
+<script setup>
+import MUserProfile from '../profile/MUserProfile.vue'
+</script>
 
 <style scoped lang="scss">
 .header {
@@ -48,12 +48,7 @@
 
     li {
         a {
-            color: #fff;
             font-size: 18px;
-
-            &:hover {
-                color: #afafaf;
-            }
         }
     }
 }

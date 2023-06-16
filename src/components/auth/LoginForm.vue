@@ -5,7 +5,7 @@
             <h2 class="login-form__title">Авторизация</h2>
             <MInput v-model="form.username" placeholder="Логин" />
             <MInput v-model="form.password" placeholder="Пароль" type="password" />
-            <MButton label="Войти" color="primary" @click="submit" />
+            <MButton color="primary" @click="submit">Войти</MButton>
         </div>
     </div>
 </template>

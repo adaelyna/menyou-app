@@ -1,16 +1,13 @@
-<script setup>
-</script>
-
 <template>
-    <main>
+    <div class="users-page">
         <h1 class="users__title">Hello. There will be users list soon hehe</h1>
-    </main>
+    </div>
 </template>
 
-<style>
+<script setup></script>
 
+<style>
 .users__title {
     color: tomato;
 }
-
 </style>

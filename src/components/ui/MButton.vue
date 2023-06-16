@@ -1,13 +1,14 @@
 <template>
-    <button :class="['btn', size, color, full ? 'full' : '']">{{ label }}</button>
+    <button :class="['btn', size, color, full ? 'full' : '']">
+        <slot>Submit</slot>
+    </button>
 </template>
 
 <script setup>
 defineProps({
     full: { type: Boolean, required: false, default: false },
     color: { type: String, required: false, default: '' },
-    size: { type: String, required: false, default: 'medium' },
-    label: { type: String, required: false, default: 'Submit' }
+    size: { type: String, required: false, default: 'medium' }
 })
 </script>
 
@@ -82,6 +83,11 @@ defineProps({
         &:hover {
             background-color: rgb(181, 117, 0);
         }
+    }
+
+    &.transparent {
+        color: #fff;
+        background-color: transparent;
     }
 
     &.full {
