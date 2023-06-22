@@ -5,7 +5,7 @@
             <h2 class="login-form__title">Авторизация</h2>
             <MInput v-model="form.username" placeholder="Логин" />
             <MInput v-model="form.password" placeholder="Пароль" type="password" />
-            <MButton label="Войти" color="primary" @click="submit" />
+            <MButton color="primary" @click="submit">Войти</MButton>
         </div>
     </div>
 </template>
@@ -14,11 +14,11 @@
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-import MButton from './ui/MButton.vue'
-import MInput from './ui/MInput.vue'
-import MLoader from './ui/MLoader.vue'
-import authApi from '../api/auth'
-import { useAuth } from '../stores/auth'
+import MButton from '../ui/MButton.vue'
+import MInput from '../ui/Minput.vue'
+import MLoader from '../ui/MLoader.vue'
+import authApi from '../../api/auth'
+import { useAuthStore } from '../../stores/auth'
 
 const router = useRouter()
 const isLoading = ref(false)
@@ -28,7 +28,7 @@ const form = reactive({
     password: ''
 })
 
-const authState = useAuth()
+const authState = useAuthStore()
 
 const submit = () => {
     isLoading.value = true
@@ -39,6 +39,7 @@ const submit = () => {
         })
         .then(({ data }) => {
             authState.setUser(data.user)
+            authState.setIsLoggedIn(true)
 
             router.push({
                 name: 'home'
