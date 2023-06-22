@@ -9,7 +9,7 @@ export const useAuthStore = defineStore('auth', () => {
         user.value = payload
     }
 
-    function setisLoggedIn(payload) {
+    function setIsLoggedIn(payload) {
         isLoggedIn.value = payload
     }
 
@@ -17,6 +17,6 @@ export const useAuthStore = defineStore('auth', () => {
         user,
         setUser,
         isLoggedIn,
-        setisLoggedIn
+        setIsLoggedIn
     }
 })

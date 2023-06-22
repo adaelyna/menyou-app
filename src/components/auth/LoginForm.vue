@@ -39,7 +39,7 @@ const submit = () => {
         })
         .then(({ data }) => {
             authState.setUser(data.user)
-            authState.setisLoggedIn(true)
+            authState.setIsLoggedIn(true)
 
             router.push({
                 name: 'home'
