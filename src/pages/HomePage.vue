@@ -30,9 +30,6 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import MButton from '../components/ui/MButton.vue'
-import { useAuth } from '../stores/auth'
-
-const { user } = useAuth()
 
 const isOpen = ref(false)
 

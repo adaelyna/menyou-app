@@ -18,7 +18,7 @@ import MButton from '../ui/MButton.vue'
 import MInput from '../ui/Minput.vue'
 import MLoader from '../ui/MLoader.vue'
 import authApi from '../../api/auth'
-import { useAuth } from '../../stores/auth'
+import { useAuthStore } from '../../stores/auth'
 
 const router = useRouter()
 const isLoading = ref(false)
@@ -28,7 +28,7 @@ const form = reactive({
     password: ''
 })
 
-const authState = useAuth()
+const authState = useAuthStore()
 
 const submit = () => {
     isLoading.value = true
@@ -39,6 +39,7 @@ const submit = () => {
         })
         .then(({ data }) => {
             authState.setUser(data.user)
+            authState.setisLoggedIn(true)
 
             router.push({
                 name: 'home'
