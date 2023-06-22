@@ -12,8 +12,8 @@ import { storeToRefs } from 'pinia'
 import { useAuthStore } from '../../stores/auth'
 import MButton from '../ui/MButton.vue'
 
-const authState = useAuthStore()
-const { user } = storeToRefs(authState)
+const authStore = useAuthStore()
+const { user } = storeToRefs(authStore)
 </script>
 
 <style scoped lang="scss">
