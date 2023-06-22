@@ -10,13 +10,18 @@
 
 <script setup>
 import { storeToRefs } from 'pinia'
+import { onMounted } from 'vue'
 
 import MFooter from './components/layout/MFooter.vue'
 import MHeader from './components/layout/MHeader.vue'
 import { useAuthStore } from './stores/auth'
 
-const authState = useAuthStore()
-const { isLoggedIn } = storeToRefs(authState)
+const authStore = useAuthStore()
+const { isLoggedIn } = storeToRefs(authStore)
+
+onMounted(() => {
+    authStore.getCurrentUser()
+})
 </script>
 
 <style scoped></style>

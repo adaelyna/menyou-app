@@ -1,8 +1,10 @@
 <template>
     <div class="login-form">
         <MLoader v-if="isLoading" full />
+        
         <div class="form-card">
             <h2 class="login-form__title">Авторизация</h2>
+
             <MInput v-model="form.username" placeholder="Логин" />
             <MInput v-model="form.password" placeholder="Пароль" type="password" />
             <MButton color="primary" @click="submit">Войти</MButton>
@@ -11,46 +13,24 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { reactive } from 'vue'
+import { storeToRefs } from 'pinia'
 
 import MButton from '../ui/MButton.vue'
 import MInput from '../ui/Minput.vue'
 import MLoader from '../ui/MLoader.vue'
-import authApi from '../../api/auth'
 import { useAuthStore } from '../../stores/auth'
-
-const router = useRouter()
-const isLoading = ref(false)
 
 const form = reactive({
     username: '',
     password: ''
 })
 
-const authState = useAuthStore()
+const authStore = useAuthStore()
+const { isLoading } = storeToRefs(authStore)
 
 const submit = () => {
-    isLoading.value = true
-
-    authApi
-        .login({
-            ...form
-        })
-        .then(({ data }) => {
-            authState.setUser(data.user)
-            authState.setIsLoggedIn(true)
-
-            router.push({
-                name: 'home'
-            })
-        })
-        .catch((e) => {
-            console.log('error', e)
-        })
-        .finally(() => {
-            isLoading.value = false
-        })
+    authStore.loginUser(form)
 }
 </script>
 
