@@ -10,6 +10,7 @@ export const useAuthStore = defineStore('auth', () => {
     const user = ref(null)
     const isLoggedIn = ref(false)
     const isLoading = ref(false)
+    const isPreLoader = ref(false)
 
     const loginUser = (credentials) => {
         isLoading.value = true
@@ -33,25 +34,35 @@ export const useAuthStore = defineStore('auth', () => {
             })
     }
 
-    const getCurrentUser = () => {
-        isLoading.value = true
+    const getCurrentUser = async () => {
+        if (!localStorage.getItem('accessToken')) {
+            router.push({ name: 'login' })
+            
+            return
+        }
 
-        authApi
+        isPreLoader.value = true
+
+        await authApi
             .getCurrentUser()
             .then(({ data }) => {
-                console.log('data', data)
+                user.value = data.user
+                isLoggedIn.value = true
             })
-            .catch((e) => {
-                console.log(e)
+            .catch(() => {
+                isLoggedIn.value = false
+                user.value = null
             })
             .finally(() => {
-                isLoading.value = false
+                isPreLoader.value = false
             })
     }
+
     return {
         user,
         isLoggedIn,
         isLoading,
+        isPreLoader,
         loginUser,
         getCurrentUser
     }

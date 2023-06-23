@@ -1,5 +1,5 @@
 <template>
-    <div :class="['loader-wrapper', full ? 'is-full' : '']">
+    <div :class="['loader-wrapper', full ? 'is-full' : '', preloader ? 'preloader' : '']">
         <div
             aria-label="Orange and tan hamster running in a metal wheel"
             role="img"
@@ -27,7 +27,8 @@
 
 <script setup>
 defineProps({
-    full: { type: Boolean, required: false, default: false }
+    full: { type: Boolean, required: false, default: false },
+    preloader: { type: Boolean, required: false, default: false }
 })
 </script>
 
@@ -47,6 +48,10 @@ defineProps({
         z-index: 999;
         backdrop-filter: blur(2px);
         overflow: hidden;
+    }
+
+    &.preloader {
+        background: white;
     }
 }
 
