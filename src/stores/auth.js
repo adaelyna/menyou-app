@@ -13,7 +13,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     const loginUser = (credentials) => {
         isLoading.value = true
-        
+
         authApi
             .login(credentials)
             .then(({ data }) => {
@@ -48,7 +48,6 @@ export const useAuthStore = defineStore('auth', () => {
                 isLoading.value = false
             })
     }
-
     return {
         user,
         isLoggedIn,
