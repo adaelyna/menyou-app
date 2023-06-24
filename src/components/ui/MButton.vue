@@ -8,7 +8,7 @@
 defineProps({
     full: { type: Boolean, required: false, default: false },
     color: { type: String, required: false, default: '' },
-    size: { type: String, required: false, default: 'medium' }
+    size: { type: String, required: false, default: 'medium' },
 })
 </script>
 
@@ -16,12 +16,11 @@ defineProps({
 .btn {
     display: block;
     border: 0;
-    outline: 0;
     border-radius: 8px;
     padding: 11px 30px;
     font-size: 16px;
     line-height: 16px;
-    transition: all .6s;
+    transition: all .3s;
     cursor: pointer;
 
     &:hover {
@@ -88,6 +87,8 @@ defineProps({
     &.transparent {
         color: #fff;
         background-color: transparent;
+        padding: 0;
+        border-radius: 0;
     }
 
     &.full {
