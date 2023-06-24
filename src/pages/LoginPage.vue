@@ -7,7 +7,22 @@
 </template>
 
 <script setup>
+import { storeToRefs } from 'pinia'
+import { onBeforeMount } from 'vue'
+import { useRouter } from 'vue-router'
+
 import LoginForm from '../components/auth/LoginForm.vue'
+import { useAuthStore } from '../stores/auth'
+
+const router = useRouter()
+const authStore = useAuthStore()
+const { isLoggedIn } = storeToRefs(authStore)
+
+onBeforeMount(() => {
+    if (isLoggedIn) {
+        router.back()
+    }
+})
 </script>
 
 <style scoped lang="scss">
