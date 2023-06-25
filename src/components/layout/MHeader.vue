@@ -16,7 +16,10 @@
                         <a href="#" class="header-menu__link">Order</a>
                     </li>
                     <li class="header-menu__item">
-                        <RouterLink :to="{ name:'roles' }">Roles</RouterLink>
+                        <RouterLink :to="{ name: 'roles' }">Roles</RouterLink>
+                    </li>
+                    <li class="header-menu__item">
+                        <RouterLink :to="{ name: 'users' }">Users</RouterLink>
                     </li>
                 </ul>
                 <MUserProfile color="transparent" />
