@@ -8,7 +8,7 @@
 defineProps({
     full: { type: Boolean, required: false, default: false },
     color: { type: String, required: false, default: '' },
-    size: { type: String, required: false, default: 'medium' },
+    size: { type: String, required: false, default: 'medium' }
 })
 </script>
 

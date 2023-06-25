@@ -55,6 +55,7 @@ defineProps({
     tbody {
         margin-top: 12px;
         display: block;
+        
         tr {
             margin-top: 8px;
             background-color: #fff;
