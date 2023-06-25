@@ -16,7 +16,7 @@
                         <a href="#" class="footer-menu__link">Order</a>
                     </li>
                     <li class="footer-menu__item">
-                        <a href="#" class="footer-menu__link">Role</a>
+                        <a href="#" class="footer-menu__link">Roles</a>
                     </li>
                 </ul>
                 <p class="copyrights">All rights reserved ©</p>
