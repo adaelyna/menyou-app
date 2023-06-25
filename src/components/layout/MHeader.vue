@@ -3,7 +3,7 @@
         <div class="container">
             <div class="header__inner">
                 <div class="logo">
-                    <RouterLink to="/"> menyou </RouterLink>
+                    <RouterLink :to="{ name: 'home' }"> menyou </RouterLink>
                 </div>
                 <ul class="header-menu">
                     <li class="header-menu__item">
@@ -16,7 +16,7 @@
                         <a href="#" class="header-menu__link">Order</a>
                     </li>
                     <li class="header-menu__item">
-                        <a href="#" class="header-menu__link">Role</a>
+                        <RouterLink :to="{ name:'roles' }">Roles</RouterLink>
                     </li>
                 </ul>
                 <MUserProfile color="transparent" />
