@@ -26,10 +26,20 @@ export const useRolesStore = defineStore('roles', () => {
             })
     }
 
+    const addRole = (form) => {
+        rolesApi
+            .addRole(form)
+            .then(({ data }) => {
+                roles.value = [...roles.value, data.role]
+                total.value++
+            })
+    }
+
     return {
         isLoading,
         total,
         roles,
-        getRoles
+        getRoles,
+        addRole
     }
 })
