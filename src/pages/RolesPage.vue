@@ -53,7 +53,6 @@ onMounted(() => {
 
 const openModal = () => {
     isOpen.value = true
-    console.log('handleModal')
 }
 
 const closeModal = () => {

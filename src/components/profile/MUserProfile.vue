@@ -42,6 +42,7 @@ const handleDropdown = () => {
 <style scoped lang="scss">
 .user-profile {
     position: relative;
+    
     &__button {
         font-size: 18px;
     }
@@ -55,9 +56,10 @@ const handleDropdown = () => {
     border-radius: 6px;
     box-shadow: 1px 1px 10px #2424241a;
 
-    ul{
-        li{
+    ul {
+        li {
             margin-bottom: 8px;
+
             a {
                 color: #242424 ;
                 font-size: 16px;
