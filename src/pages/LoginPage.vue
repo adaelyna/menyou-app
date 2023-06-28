@@ -19,7 +19,7 @@ const authStore = useAuthStore()
 const { isLoggedIn } = storeToRefs(authStore)
 
 onBeforeMount(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn.value) {
         router.back()
     }
 })

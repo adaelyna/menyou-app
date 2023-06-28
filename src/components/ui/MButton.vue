@@ -1,5 +1,6 @@
 <template>
     <button :class="['btn', size, color, full ? 'full' : '']">
+        <span v-if="loading">Loading...</span>
         <slot>Submit</slot>
     </button>
 </template>
@@ -8,7 +9,8 @@
 defineProps({
     full: { type: Boolean, required: false, default: false },
     color: { type: String, required: false, default: '' },
-    size: { type: String, required: false, default: 'medium' }
+    size: { type: String, required: false, default: 'medium' },
+    loading: { type: Boolean, required: false, default: false }
 })
 </script>
 

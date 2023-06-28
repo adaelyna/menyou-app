@@ -12,12 +12,7 @@
                 <td v-for="col of cols" :key="col.key">{{ row[col.key] }}</td>
                 <td>
                     <div class="table__actions">
-                        <MButton color="transparent">
-                            <img src="@/assets/images/edit-icon-color.svg" alt="Редактировать" />
-                        </MButton>
-                        <MButton color="transparent">
-                            <img src="@/assets/images/delete-icon-color.svg" alt="Удалить" />
-                        </MButton>
+                        <slot name="actions" :id="row.id"></slot>
                     </div>
                 </td>
             </tr>
@@ -26,8 +21,6 @@
 </template>
 
 <script setup>
-import MButton from './MButton.vue';
-
 defineProps({
     cols: { type: Array, required: false, default: () => [] },
     rows: { type: Array, required: false, default: () => [] }
@@ -87,7 +80,7 @@ defineProps({
             height: 24px;
         }
 
-        .btn {
+        &:deep(.btn) {
             &:hover {
                 transform: scale(1.1);
             }

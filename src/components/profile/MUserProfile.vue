@@ -13,7 +13,7 @@
                     </RouterLink>
                 </li>
                 <li>
-                    <MButton color="transparent">
+                    <MButton color="transparent" @click="logoutUser">
                         <img src="@/assets/images/logout-icon.svg" alt="Выйти">
                         <span>Выйти</span>
                     </MButton>
@@ -36,6 +36,10 @@ const isOpen = ref(false)
 
 const handleDropdown = () => {
     isOpen.value = !isOpen.value
+}
+
+const logoutUser = () => {
+    authStore.logoutUser()
 }
 </script>
 
