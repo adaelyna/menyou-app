@@ -34,10 +34,19 @@ export const useAuthStore = defineStore('auth', () => {
             })
     }
 
+    const logoutUser = async () => {
+        user.value = null
+        isLoggedIn.value = false
+        
+        localStorage.removeItem('accessToken')
+
+        router.push({ name: 'login' })
+    }
+
     const getCurrentUser = async () => {
         if (!localStorage.getItem('accessToken')) {
             router.push({ name: 'login' })
-            
+
             return
         }
 
@@ -64,6 +73,7 @@ export const useAuthStore = defineStore('auth', () => {
         isLoading,
         isPreLoader,
         loginUser,
-        getCurrentUser
+        getCurrentUser,
+        logoutUser
     }
 })

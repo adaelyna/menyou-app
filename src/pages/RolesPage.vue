@@ -6,14 +6,25 @@
                 <MButton color="primary" @click="openModal">Добавить</MButton>
             </div>
             <MLoader v-if="rolesStore.isLoading" />
-            <MTable v-if="rolesStore.roles" :cols="cols" :rows="rolesStore.roles" />
+            <MTable v-if="rolesStore.roles" :cols="cols" :rows="rolesStore.roles">
+                <template #actions="{ id }">
+                    <MButton color="transparent">
+                        <img src="@/assets/images/edit-icon-color.svg" alt="Редактировать" />
+                    </MButton>
+                    <MButton color="transparent" @click="handleDelete(id)">
+                        <img src="@/assets/images/delete-icon-color.svg" alt="Удалить" />
+                    </MButton>
+                </template>
+            </MTable>
 
             <div v-if="isOpen" class="box">
                 <div class="close" @click="closeModal">x</div>
                 <div class="modal-content">
                     <MInput v-model="form.code" placeholder="Код" />
                     <MInput v-model="form.name" placeholder="Наименование" />
-                    <MButton color="primary" @click="submit">Сохранить</MButton>
+                    <MButton color="primary" :loading="buttonsLoading['add']" @click="submit">
+                        Сохранить
+                        </MButton>
                 </div>
             </div>
         </div>
@@ -22,6 +33,7 @@
 
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
+import { storeToRefs } from 'pinia'
 
 import { useRolesStore } from '../stores/roles'
 import MTable from '../components/ui/MTable.vue'
@@ -30,6 +42,8 @@ import MButton from '../components/ui/MButton.vue'
 import MInput from '@/components/ui/MInput.vue'
 
 const rolesStore = useRolesStore()
+const { buttonsLoading } = storeToRefs(rolesStore)
+
 const cols = [
     {
         key: 'code',
@@ -61,7 +75,10 @@ const closeModal = () => {
 
 const submit = () => {
     rolesStore.addRole(form)
-    isOpen.value = false
+}
+
+const handleDelete = (id) => {
+    rolesStore.deleteRole(id)
 }
 </script>
 
