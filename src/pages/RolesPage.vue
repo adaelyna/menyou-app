@@ -3,7 +3,7 @@
         <div class="container">
             <div class="page-header">
                 <h1>Роли</h1>
-                <MButton color="primary" @click="openModal">Добавить</MButton>
+                <MButton color="primary" @click="toggleModal('add')">Добавить</MButton>
             </div>
             <MLoader v-if="rolesStore.isLoading" />
             <MTable v-if="rolesStore.roles" :cols="cols" :rows="rolesStore.roles">
@@ -17,22 +17,31 @@
                 </template>
             </MTable>
 
-            <div v-if="isOpen" class="box">
-                <div class="close" @click="closeModal">x</div>
+            <MModal v-model="modalState.add">
                 <div class="modal-content">
                     <MInput v-model="form.code" placeholder="Код" />
                     <MInput v-model="form.name" placeholder="Наименование" />
                     <MButton color="primary" :loading="buttonsLoading['add']" @click="submit">
                         Сохранить
-                        </MButton>
+                    </MButton>
                 </div>
-            </div>
+            </MModal>
+
+            <MModal v-model="modalState.delete">
+                <div class="modal-content">
+                    <h4>Вы действительно хотите удалить?</h4>
+                    <div class="modal-actions">
+                        <MButton color="primary" full> Да </MButton>
+                        <MButton full> Нет </MButton>
+                    </div>
+                </div>
+            </MModal>
         </div>
     </div>
 </template>
 
 <script setup>
-import { onMounted, reactive, ref } from 'vue'
+import { onMounted, reactive } from 'vue'
 import { storeToRefs } from 'pinia'
 
 import { useRolesStore } from '../stores/roles'
@@ -40,9 +49,14 @@ import MTable from '../components/ui/MTable.vue'
 import MLoader from '@/components/ui/MLoader.vue'
 import MButton from '../components/ui/MButton.vue'
 import MInput from '@/components/ui/MInput.vue'
+import MModal from '../components/ui/MModal.vue'
 
 const rolesStore = useRolesStore()
 const { buttonsLoading } = storeToRefs(rolesStore)
+const modalState = reactive({
+    add: false,
+    delete: false
+})
 
 const cols = [
     {
@@ -55,7 +69,6 @@ const cols = [
     }
 ]
 
-const isOpen = ref(false)
 const form = reactive({
     code: '',
     name: ''
@@ -65,12 +78,8 @@ onMounted(() => {
     rolesStore.getRoles()
 })
 
-const openModal = () => {
-    isOpen.value = true
-}
-
-const closeModal = () => {
-    isOpen.value = false
+const toggleModal = (key) => {
+    modalState[key] = !modalState[key]
 }
 
 const submit = () => {
@@ -115,5 +124,11 @@ const handleDelete = (id) => {
     display: flex;
     flex-direction: column;
     gap: 12px;
+}
+
+.modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 </style>

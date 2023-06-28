@@ -34,7 +34,7 @@ export const useAuthStore = defineStore('auth', () => {
             })
     }
 
-    const logoutUser = async () => {
+    const logoutUser = () => {
         user.value = null
         isLoggedIn.value = false
         
