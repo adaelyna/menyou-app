@@ -9,8 +9,9 @@
                         <img src="@/assets/images/edit-icon-color.svg" alt="Редактировать" />
                     </MButton>
                     <MButton color="transparent">
-                        <img src="@/assets/images/delete-icon-color.svg" alt="Удалить" /> </MButton
-                ></template>
+                        <img src="@/assets/images/delete-icon-color.svg" alt="Удалить" />
+                    </MButton>
+                </template>
             </MTable>
         </div>
     </div>

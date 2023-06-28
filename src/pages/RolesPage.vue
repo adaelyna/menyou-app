@@ -24,7 +24,7 @@
                     <MInput v-model="form.name" placeholder="Наименование" />
                     <MButton color="primary" :loading="buttonsLoading['add']" @click="submit">
                         Сохранить
-                        </MButton>
+                    </MButton>
                 </div>
             </div>
         </div>
