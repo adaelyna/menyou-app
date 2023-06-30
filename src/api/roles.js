@@ -10,6 +10,12 @@ const addRole = (payload) => {
     })
 }
 
+const updateRole = (roleId, payload) => {
+    return axios.put(`/role/${roleId}`, {
+        role: payload
+    })
+}
+
 const deleteRole = (roleId) => {
     return axios.delete(`/role/${roleId}`)
 }
@@ -17,5 +23,6 @@ const deleteRole = (roleId) => {
 export default {
     getRoles,
     addRole,
-    deleteRole
+    deleteRole,
+    updateRole
 }

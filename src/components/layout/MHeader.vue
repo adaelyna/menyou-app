@@ -7,7 +7,7 @@
                 </div>
                 <ul class="header-menu">
                     <li class="header-menu__item">
-                        <a href="#" class="header-menu__link">Products</a>
+                        <RouterLink :to="{ name: 'products' }">Products</RouterLink>
                     </li>
                     <li class="header-menu__item">
                         <a href="#" class="header-menu__link">Meals</a>

@@ -12,7 +12,7 @@
                 <td v-for="col of cols" :key="col.key">{{ row[col.key] }}</td>
                 <td>
                     <div class="table__actions">
-                        <slot name="actions" :id="row.id"></slot>
+                        <slot name="actions" :row="row"></slot>
                     </div>
                 </td>
             </tr>
