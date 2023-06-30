@@ -3,15 +3,17 @@
         <div class="container">
             <div class="page-header">
                 <h1>Роли</h1>
-                <MButton color="primary" @click="toggleModal('add')">Добавить</MButton>
+                <MButton color="primary" @click="handleAdd">Добавить</MButton>
             </div>
+
             <MLoader v-if="rolesStore.isLoading" />
+
             <MTable v-if="rolesStore.roles" :cols="cols" :rows="rolesStore.roles">
-                <template #actions="{ id }">
-                    <MButton color="transparent">
+                <template #actions="{ row }">
+                    <MButton color="transparent" @click="handleEdit(row)">
                         <img src="@/assets/images/edit-icon-color.svg" alt="Редактировать" />
                     </MButton>
-                    <MButton color="transparent" @click="handleDelete(id)">
+                    <MButton color="transparent" @click="handleDelete(row)">
                         <img src="@/assets/images/delete-icon-color.svg" alt="Удалить" />
                     </MButton>
                 </template>
@@ -21,7 +23,17 @@
                 <div class="modal-content">
                     <MInput v-model="form.code" placeholder="Код" />
                     <MInput v-model="form.name" placeholder="Наименование" />
-                    <MButton color="primary" :loading="buttonsLoading['add']" @click="submit">
+                    <MButton color="primary" :loading="buttonsLoading['add']" @click="submitAdd">
+                        Сохранить
+                    </MButton>
+                </div>
+            </MModal>
+
+            <MModal v-model="modalState.edit">
+                <div class="modal-content">
+                    <MInput v-model="form.code" placeholder="Код" />
+                    <MInput v-model="form.name" placeholder="Наименование" />
+                    <MButton color="primary" :loading="buttonsLoading['edit']" @click="submitEdit">
                         Сохранить
                     </MButton>
                 </div>
@@ -31,8 +43,15 @@
                 <div class="modal-content">
                     <h4>Вы действительно хотите удалить?</h4>
                     <div class="modal-actions">
-                        <MButton color="primary" full> Да </MButton>
-                        <MButton full> Нет </MButton>
+                        <MButton
+                            color="primary"
+                            full
+                            :loading="buttonsLoading['delete']"
+                            @click="submitDelete"
+                        >
+                            Да
+                        </MButton>
+                        <MButton full @click="toggleModal('delete')"> Нет </MButton>
                     </div>
                 </div>
             </MModal>
@@ -41,7 +60,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 
 import { useRolesStore } from '../stores/roles'
@@ -55,6 +74,7 @@ const rolesStore = useRolesStore()
 const { buttonsLoading } = storeToRefs(rolesStore)
 const modalState = reactive({
     add: false,
+    edit: false,
     delete: false
 })
 
@@ -74,6 +94,8 @@ const form = reactive({
     name: ''
 })
 
+const selectedRow = ref(null)
+
 onMounted(() => {
     rolesStore.getRoles()
 })
@@ -82,12 +104,44 @@ const toggleModal = (key) => {
     modalState[key] = !modalState[key]
 }
 
-const submit = () => {
-    rolesStore.addRole(form)
+const submitAdd = () => {
+    rolesStore.addRole(form).then(() => {
+        toggleModal('add')
+    })
 }
 
-const handleDelete = (id) => {
-    rolesStore.deleteRole(id)
+const submitEdit = () => {
+    rolesStore.updateRole(selectedRow.value.id, form).then(() => {
+        toggleModal('edit')
+    })
+}
+
+const submitDelete = () => {
+    rolesStore.deleteRole(selectedRow.value.id).then(() => {
+        toggleModal('delete')
+    })
+}
+
+const handleAdd = () => {
+    form.code = ''
+    form.name = ''
+
+    toggleModal('add')
+}
+
+const handleDelete = (row) => {
+    selectedRow.value = row
+
+    toggleModal('delete')
+}
+
+const handleEdit = (row) => {
+    form.code = row.code
+    form.name = row.name
+
+    selectedRow.value = row
+
+    toggleModal('edit')
 }
 </script>
 

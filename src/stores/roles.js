@@ -8,7 +8,9 @@ export const useRolesStore = defineStore('roles', () => {
     const total = ref(0)
     const roles = ref(null)
     const buttonsLoading = reactive({
-        add: false
+        add: false,
+        edit: false,
+        delete: false
     })
 
     const getRoles = () => {
@@ -32,7 +34,7 @@ export const useRolesStore = defineStore('roles', () => {
     const addRole = (form) => {
         buttonsLoading.add = true
 
-        rolesApi
+        return rolesApi
             .addRole(form)
             .then(({ data }) => {
                 roles.value = [...roles.value, data.role]
@@ -43,11 +45,39 @@ export const useRolesStore = defineStore('roles', () => {
             })
     }
 
+    const updateRole = (roleId, form) => {
+        buttonsLoading.edit = true
+
+        return rolesApi
+            .updateRole(roleId, form)
+            .then(({ data }) => {
+                roles.value = roles.value.map((role) => {
+                    if (role.id === roleId) {
+                        return {
+                            ...role,
+                            code: data.role.code,
+                            name: data.role.name
+                        }
+                    }
+
+                    return role
+                })
+            })
+            .finally(() => {
+                buttonsLoading.add = false
+            })
+    }
+
     const deleteRole = (roleId) => {
-        rolesApi
+        buttonsLoading.delete = true
+
+        return rolesApi
             .deleteRole(roleId)
             .then(() => {
                 roles.value = roles.value.filter((role) => role.id !== roleId)
+            })
+            .finally(() => {
+                buttonsLoading.delete = false
             })
     }
 
@@ -58,6 +88,7 @@ export const useRolesStore = defineStore('roles', () => {
         buttonsLoading,
         getRoles,
         addRole,
-        deleteRole
+        deleteRole,
+        updateRole
     }
 })
