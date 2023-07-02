@@ -54,8 +54,8 @@
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useProductsStore } from '../stores/products'
 
+import { useProductsStore } from '../stores/products'
 import MButton from '@/components/ui/MButton.vue'
 import MProductCard from '../components/ui/MProductCard.vue'
 import MLoader from '@/components/ui/MLoader.vue'
