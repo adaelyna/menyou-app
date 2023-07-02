@@ -18,9 +18,12 @@
 import { ref } from 'vue'
 
 defineProps({
+    modelValue: { type: Array, required: true },
     placeholder: { type: String, required: false, default: 'Выберите' },
     items: { type: Array, required: false, default: () => [] }
 })
+
+const emit = defineEmits(['update:modelValue'])
 
 const isOpen = ref(false)
 const selectedItem = ref(null)
@@ -32,6 +35,8 @@ const toggleSelect = () => {
 const select = (item) => {
     selectedItem.value = item
     isOpen.value = false
+
+    emit('update:modelValue', [item.id])
 }
 </script>
 

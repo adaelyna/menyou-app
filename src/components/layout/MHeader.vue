@@ -52,6 +52,21 @@ import MUserProfile from '../profile/MUserProfile.vue'
     li {
         a {
             font-size: 18px;
+            position: relative;
+
+            &.router-link-active {
+                color: #bebebe;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    bottom: -5px;
+                    width: 100%;
+                    height: 1px;
+                    background-color: #bebebe;
+                }
+            }
         }
     }
 }

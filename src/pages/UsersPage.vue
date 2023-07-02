@@ -23,8 +23,8 @@
                     <MInput v-model="form.password" placeholder="Пароль" type="password" />
                     <MInput v-model="form.firstname" placeholder="Имя" />
                     <MInput v-model="form.lastname" placeholder="Фамилия" />
-                    <MSelect :items="rolesStore.roles" />
-                    <MButton color="primary">
+                    <MSelect v-model="form.role_list" :items="rolesStore.roles" />
+                    <MButton color="primary" :loading="buttonsLoading.add" @click="submitAdd">
                         Сохранить
                     </MButton>
                 </div>
@@ -44,9 +44,11 @@ import MButton from '../components/ui/MButton.vue'
 import MModal from '@/components/ui/MModal.vue'
 import MInput from '@/components/ui/MInput.vue'
 import MSelect from '../components/ui/MSelect.vue'
+import { storeToRefs } from 'pinia'
 
 const usersStore = useUsersStore()
 const rolesStore = useRolesStore()
+const { buttonsLoading } = storeToRefs(usersStore)
 
 const cols = [
     {
@@ -78,6 +80,12 @@ const form = reactive({
 
 const handleAdd = () => {
     toggleModal('add')
+}
+
+const submitAdd = () => {
+    usersStore.addUser(form).then(() => {
+        toggleModal('add')
+    })
 }
 
 onMounted(() => {
