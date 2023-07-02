@@ -2,18 +2,20 @@
     <div class="select">
         <div :class="['select__header', { isOpen }]" @click="toggleSelect">
             <span>{{ selectedItem?.name || placeholder }}</span>
-            <img src="@/assets/images/arrow-down.svg" alt="Down">
+            <img src="@/assets/images/arrow-down.svg" alt="Down" />
         </div>
         <div v-show="isOpen" class="select__content">
-        <ul>
-            <li v-for="item of items" :key="item.name" @click="select(item)">{{ item.name }}</li>
-        </ul>
+            <ul>
+                <li v-for="item of items" :key="item.name" @click="select(item)">
+                    {{ item.name }}
+                </li>
+            </ul>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 defineProps({
     placeholder: { type: String, required: false, default: 'Выберите' },
@@ -62,7 +64,7 @@ const select = (item) => {
         }
 
         img {
-            transition: all .3s;
+            transition: all 0.3s;
         }
 
         &.isOpen {
@@ -86,7 +88,7 @@ const select = (item) => {
 
         ul {
             li {
-                transition: all .3s;
+                transition: all 0.3s;
                 padding: 4px 8px;
                 cursor: pointer;
 
