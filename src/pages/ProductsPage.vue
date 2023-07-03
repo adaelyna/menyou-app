@@ -18,7 +18,7 @@
                         <MButton color="transparent" @click="handleEdit(product)">
                             <img src="@/assets/images/edit-icon-color.svg" alt="Редактировать" />
                         </MButton>
-                        <MButton color="transparent">
+                        <MButton color="transparent" @click="handleDelete(product)">
                             <img src="@/assets/images/delete-icon-color.svg" alt="Удалить" />
                         </MButton>
                     </template>
@@ -47,6 +47,21 @@
                     </MButton>
                 </div>
             </MModal>
+
+            <MModal v-model="modalState.delete">
+                <div class="modal-content">
+                    <h4>Вы действительно хотите удалить?</h4>
+                    <MButton
+                        color="primary"
+                        full
+                        :loading="buttonsLoading.delete"
+                        @click="submitDelete"
+                    >
+                        Да
+                    </MButton>
+                    <MButton full @click="toggleModal('delete')"> Нет </MButton>
+                </div>
+            </MModal>
         </div>
     </div>
 </template>
@@ -68,7 +83,8 @@ const { buttonsLoading } = storeToRefs(productsStore)
 
 const modalState = reactive({
     add: false,
-    edit: false
+    edit: false,
+    delete: false
 })
 
 const selectedProduct = ref(null)
@@ -96,6 +112,12 @@ const submitEdit = () => {
     })
 }
 
+const submitDelete = () => {
+    productsStore.deleteProduct(selectedProduct.value.id).then(() => {
+        toggleModal('delete')
+    })
+}
+
 const handleAdd = () => {
     form.name = ''
     form.description = ''
@@ -113,6 +135,12 @@ const handleEdit = (product) => {
     selectedProduct.value = product
 
     toggleModal('edit')
+}
+
+const handleDelete = (product) => {
+    selectedProduct.value = product
+
+    toggleModal('delete')
 }
 
 onMounted(() => {
