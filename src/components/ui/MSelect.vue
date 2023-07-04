@@ -1,7 +1,7 @@
 <template>
     <div class="select">
         <div :class="['select__header', { isOpen }]" @click="toggleSelect">
-            <span>{{ selectedItem?.name || placeholder }}</span>
+            <span>{{ modelValue[0]?.name || selectedItem?.name || placeholder }}</span>
             <img src="@/assets/images/arrow-down.svg" alt="Down" />
         </div>
         <div v-show="isOpen" class="select__content">

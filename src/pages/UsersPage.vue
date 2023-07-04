@@ -7,7 +7,7 @@
             </div>
             <MLoader v-if="usersStore.isLoading" />
             <MTable v-if="usersStore.users" :cols="cols" :rows="usersStore.users">
-                <template #actions>
+                <template #actions="{ row }">
                     <MButton color="transparent" @click="handleEdit(row)">
                         <img src="@/assets/images/edit-icon-color.svg" alt="Редактировать" />
                     </MButton>
@@ -34,7 +34,9 @@
                 <div class="modal-content">
                     <MInput v-model="form.username" placeholder="Логин" />
                     <MInput v-model="form.firstname" placeholder="Имя" />
-                    <MButton color="primary" :loading="buttonsLoading['edit']" @click="submitEdit">
+                    <MInput v-model="form.lastname" placeholder="Фамилия" />
+                    <MSelect v-model="form.role_list" :items="rolesStore.roles" />
+                    <MButton color="primary" :loading="buttonsLoading.edit" @click="submitEdit">
                         Сохранить
                     </MButton>
                 </div>
@@ -45,6 +47,7 @@
 
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
+import { storeToRefs } from 'pinia'
 
 import { useUsersStore } from '../stores/users'
 import { useRolesStore } from '../stores/roles'
@@ -54,7 +57,6 @@ import MButton from '../components/ui/MButton.vue'
 import MModal from '@/components/ui/MModal.vue'
 import MInput from '@/components/ui/MInput.vue'
 import MSelect from '../components/ui/MSelect.vue'
-import { storeToRefs } from 'pinia'
 
 const usersStore = useUsersStore()
 const rolesStore = useRolesStore()
@@ -78,7 +80,7 @@ const cols = [
 const modalState = reactive({
     add: false,
     edit: false,
-    delete:false
+    delete: false
 })
 
 const toggleModal = (key) => {
@@ -102,6 +104,8 @@ const handleAdd = () => {
 const handleEdit = (row) => {
     form.username = row.username
     form.firstname = row.firstname
+    form.lastname = row.lastname
+    form.role_list = row.role_list    
 
     selectedRow.value = row
 

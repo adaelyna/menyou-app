@@ -47,16 +47,22 @@ export const useUsersStore = defineStore('users', () => {
 
     const updateUser = (userId, form) => {
         buttonsLoading.edit = true
+        delete form.password
+
+        form.role_list.forEach((role) => {
+            if (typeof role === 'object') {
+                form.role_list = []
+                form.role_list.push(role.id)
+            }
+        })
 
         return usersApi
-            .updateRole(userId, form)
+            .updateUser(userId, form)
             .then(({ data }) => {
                 users.value = users.value.map((user) => {
                     if (user.id === userId) {
                         return {
-                            ...user,
-                            username: data.user.username,
-                            firstname: data.user.firstname
+                            ...data.user
                         }
                     }
 
@@ -64,7 +70,7 @@ export const useUsersStore = defineStore('users', () => {
                 })
             })
             .finally(() => {
-                buttonsLoading.add = false
+                buttonsLoading.edit = false
             })
     }
 
