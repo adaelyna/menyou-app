@@ -10,7 +10,14 @@ const addUser = (payload) => {
     })
 }
 
+const updateUser = (userId, payload) => {
+    return axios.put(`/user/${userId}`, {
+        user: payload
+    })
+}
+
 export default {
     getUsers,
-    addUser
+    addUser,
+    updateUser
 }

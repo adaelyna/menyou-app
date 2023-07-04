@@ -8,10 +8,10 @@
             <MLoader v-if="usersStore.isLoading" />
             <MTable v-if="usersStore.users" :cols="cols" :rows="usersStore.users">
                 <template #actions>
-                    <MButton color="transparent">
+                    <MButton color="transparent" @click="handleEdit(row)">
                         <img src="@/assets/images/edit-icon-color.svg" alt="Редактировать" />
                     </MButton>
-                    <MButton color="transparent">
+                    <MButton color="transparent" @click="handleDelete(row)">
                         <img src="@/assets/images/delete-icon-color.svg" alt="Удалить" />
                     </MButton>
                 </template>
@@ -29,12 +29,22 @@
                     </MButton>
                 </div>
             </MModal>
+
+            <MModal v-model="modalState.edit">
+                <div class="modal-content">
+                    <MInput v-model="form.username" placeholder="Логин" />
+                    <MInput v-model="form.firstname" placeholder="Имя" />
+                    <MButton color="primary" :loading="buttonsLoading['edit']" @click="submitEdit">
+                        Сохранить
+                    </MButton>
+                </div>
+            </MModal>
         </div>
     </div>
 </template>
 
 <script setup>
-import { onMounted, reactive } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 
 import { useUsersStore } from '../stores/users'
 import { useRolesStore } from '../stores/roles'
@@ -58,12 +68,17 @@ const cols = [
     {
         key: 'firstname',
         name: 'Имя'
+    },
+    {
+        key: 'lastname',
+        name: 'Фамилия'
     }
 ]
 
 const modalState = reactive({
     add: false,
-    edit: false
+    edit: false,
+    delete:false
 })
 
 const toggleModal = (key) => {
@@ -78,13 +93,30 @@ const form = reactive({
     role_list: []
 })
 
+const selectedRow = ref(null)
+
 const handleAdd = () => {
     toggleModal('add')
+}
+
+const handleEdit = (row) => {
+    form.username = row.username
+    form.firstname = row.firstname
+
+    selectedRow.value = row
+
+    toggleModal('edit')
 }
 
 const submitAdd = () => {
     usersStore.addUser(form).then(() => {
         toggleModal('add')
+    })
+}
+
+const submitEdit = () => {
+    usersStore.updateUser(selectedRow.value.id, form).then(() => {
+        toggleModal('edit')
     })
 }
 

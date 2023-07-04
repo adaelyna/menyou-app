@@ -45,12 +45,36 @@ export const useUsersStore = defineStore('users', () => {
             })
     }
 
+    const updateUser = (userId, form) => {
+        buttonsLoading.edit = true
+
+        return usersApi
+            .updateRole(userId, form)
+            .then(({ data }) => {
+                users.value = users.value.map((user) => {
+                    if (user.id === userId) {
+                        return {
+                            ...user,
+                            username: data.user.username,
+                            firstname: data.user.firstname
+                        }
+                    }
+
+                    return user
+                })
+            })
+            .finally(() => {
+                buttonsLoading.add = false
+            })
+    }
+
     return {
         isLoading,
         total,
         users,
         buttonsLoading,
         getUsers,
-        addUser
+        addUser,
+        updateUser
     }
 })

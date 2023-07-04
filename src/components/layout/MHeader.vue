@@ -10,7 +10,7 @@
                         <RouterLink :to="{ name: 'products' }">Products</RouterLink>
                     </li>
                     <li class="header-menu__item">
-                        <a href="#" class="header-menu__link">Meals</a>
+                        <RouterLink :to="{ name: 'meals' }">Meals</RouterLink>
                     </li>
                     <li class="header-menu__item">
                         <a href="#" class="header-menu__link">Order</a>

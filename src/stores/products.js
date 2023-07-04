@@ -8,7 +8,9 @@ export const useProductsStore = defineStore('products', () => {
     const total = ref(0)
     const products = ref(null)
     const buttonsLoading = reactive({
-        add: false
+        add: false,
+        edit: false,
+        delete: false
     })
 
     const getProducts = () => {
