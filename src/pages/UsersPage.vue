@@ -41,6 +41,23 @@
                     </MButton>
                 </div>
             </MModal>
+
+            <MModal v-model="modalState.delete">
+                <div class="modal-content">
+                    <h4>Вы действительно хотите удалить?</h4>
+                    <div class="modal-actions">
+                        <MButton
+                            color="primary"
+                            full
+                            :loading="buttonsLoading['delete']"
+                            @click="submitDelete"
+                        >
+                            Да
+                        </MButton>
+                        <MButton full @click="toggleModal('delete')"> Нет </MButton>
+                    </div>
+                </div>
+            </MModal>
         </div>
     </div>
 </template>
@@ -112,6 +129,12 @@ const handleEdit = (row) => {
     toggleModal('edit')
 }
 
+const handleDelete = (row) => {
+    selectedRow.value = row
+
+    toggleModal('delete')
+}
+
 const submitAdd = () => {
     usersStore.addUser(form).then(() => {
         toggleModal('add')
@@ -121,6 +144,12 @@ const submitAdd = () => {
 const submitEdit = () => {
     usersStore.updateUser(selectedRow.value.id, form).then(() => {
         toggleModal('edit')
+    })
+}
+
+const submitDelete = () => {
+    usersStore.deleteUser(selectedRow.value.id).then(() => {
+        toggleModal('delete')
     })
 }
 
@@ -135,5 +164,10 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     gap: 12px;
+}
+.modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 </style>

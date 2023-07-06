@@ -1,6 +1,6 @@
 <template>
     <div class="user-profile">
-        <MButton color="transparent" @click="handleDropdown">
+        <MButton color="transparent" @click="toggleDropdown" v-click-outside="closeDropdown">
             <span class="user-profile__button"> {{ user.firstname }} {{ user.lastname }} </span>
         </MButton>
 
@@ -25,7 +25,7 @@
 
 <script setup>
 import { storeToRefs } from 'pinia'
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 import { useAuthStore } from '../../stores/auth'
 import MButton from '../ui/MButton.vue'
@@ -34,8 +34,12 @@ const authStore = useAuthStore()
 const { user } = storeToRefs(authStore)
 const isOpen = ref(false)
 
-const handleDropdown = () => {
+const toggleDropdown = () => {
     isOpen.value = !isOpen.value
+}
+
+const closeDropdown = () => {
+    isOpen.value = false
 }
 
 const logoutUser = () => {
