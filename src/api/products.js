@@ -16,8 +16,13 @@ const editProduct = (productId, payload) => {
     })
 }
 
+const deleteProduct = (productId) => {
+    return axios.delete(`/product/${productId}`)
+}
+
 export default {
     getProducts,
     addProduct,
-    editProduct
+    editProduct,
+    deleteProduct
 }

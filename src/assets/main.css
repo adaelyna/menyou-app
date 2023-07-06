@@ -42,3 +42,11 @@ a {
 a:hover {
     color: #afafaf;
 }
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}

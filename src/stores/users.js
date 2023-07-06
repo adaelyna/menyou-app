@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 
 import usersApi from '../api/users'
 
@@ -7,6 +7,11 @@ export const useUsersStore = defineStore('users', () => {
     const isLoading = ref(false)
     const total = ref(0)
     const users = ref(null)
+    const buttonsLoading = reactive({
+        add: false,
+        edit: false,
+        delete: false
+    })
 
     const getUsers = () => {
         isLoading.value = true
@@ -26,10 +31,56 @@ export const useUsersStore = defineStore('users', () => {
             })
     }
 
+    const addUser = (form) => {
+        buttonsLoading.add = true
+
+        return usersApi
+            .addUser(form)
+            .then(({ data }) => {
+                users.value = [...users.value, data.user]
+                total.value++
+            })
+            .finally(() => {
+                buttonsLoading.add = false
+            })
+    }
+
+    const updateUser = (userId, form) => {
+        buttonsLoading.edit = true
+        delete form.password
+
+        form.role_list.forEach((role) => {
+            if (typeof role === 'object') {
+                form.role_list = []
+                form.role_list.push(role.id)
+            }
+        })
+
+        return usersApi
+            .updateUser(userId, form)
+            .then(({ data }) => {
+                users.value = users.value.map((user) => {
+                    if (user.id === userId) {
+                        return {
+                            ...data.user
+                        }
+                    }
+
+                    return user
+                })
+            })
+            .finally(() => {
+                buttonsLoading.edit = false
+            })
+    }
+
     return {
         isLoading,
         total,
         users,
-        getUsers
+        buttonsLoading,
+        getUsers,
+        addUser,
+        updateUser
     }
 })

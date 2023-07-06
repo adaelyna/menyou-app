@@ -8,7 +8,9 @@ export const useProductsStore = defineStore('products', () => {
     const total = ref(0)
     const products = ref(null)
     const buttonsLoading = reactive({
-        add: false
+        add: false,
+        edit: false,
+        delete: false
     })
 
     const getProducts = () => {
@@ -68,6 +70,19 @@ export const useProductsStore = defineStore('products', () => {
             })
     }
 
+    const deleteProduct = (productId) => {
+        buttonsLoading.delete = true
+
+        return productsApi
+            .deleteProduct(productId)
+            .then(() => {
+                products.value = products.value.filter((product) => product.id !== productId)
+            })
+            .finally(() => {
+                buttonsLoading.delete = false
+            })
+    }
+
     return {
         isLoading,
         total,
@@ -75,6 +90,7 @@ export const useProductsStore = defineStore('products', () => {
         buttonsLoading,
         getProducts,
         addProduct,
-        updateProduct
+        updateProduct,
+        deleteProduct
     }
 })

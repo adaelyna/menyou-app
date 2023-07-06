@@ -6,21 +6,23 @@
                     <RouterLink :to="{ name: 'home' }"> menyou </RouterLink>
                 </div>
                 <ul class="header-menu">
-                    <li class="header-menu__item">
+                    <li v-if="isMaster || user.is_admin">
                         <RouterLink :to="{ name: 'products' }">Products</RouterLink>
                     </li>
-                    <li class="header-menu__item">
-                        <a href="#" class="header-menu__link">Meals</a>
+                    <li>
+                        <RouterLink :to="{ name: 'meals' }">Meals</RouterLink>
                     </li>
-                    <li class="header-menu__item">
+                    <li>
                         <a href="#" class="header-menu__link">Order</a>
                     </li>
-                    <li class="header-menu__item">
-                        <RouterLink :to="{ name: 'roles' }">Roles</RouterLink>
-                    </li>
-                    <li class="header-menu__item">
-                        <RouterLink :to="{ name: 'users' }">Users</RouterLink>
-                    </li>
+                    <template v-if="user.is_admin">
+                        <li class="admin-menu">
+                            <RouterLink :to="{ name: 'roles' }">Roles</RouterLink>
+                        </li>
+                        <li>
+                            <RouterLink :to="{ name: 'users' }">Users</RouterLink>
+                        </li>
+                    </template>
                 </ul>
                 <MUserProfile color="transparent" />
             </div>
@@ -29,7 +31,30 @@
 </template>
 
 <script setup>
+import { ref, watch } from 'vue'
+
+import { useAuthStore } from '../../stores/auth'
 import MUserProfile from '../profile/MUserProfile.vue'
+import { storeToRefs } from 'pinia'
+
+const authStore = useAuthStore()
+const { user } = storeToRefs(authStore)
+const isMaster = ref(false)
+
+const checkIsMaster = () => {
+    isMaster.value = authStore.user.role_list.some((role) => role.code === 'MSR')
+}
+
+watch(
+    () => user,
+    () => {
+        checkIsMaster()
+    },
+    {
+        deep: true,
+        immediate: true
+    }
+)
 </script>
 
 <style scoped lang="scss">
@@ -50,8 +75,29 @@ import MUserProfile from '../profile/MUserProfile.vue'
     gap: 20px;
 
     li {
+        position: relative;
+
         a {
             font-size: 18px;
+            position: relative;
+
+            &.router-link-active {
+                color: #bebebe;
+            }
+        }
+
+        &.admin-menu {
+            margin-left: 10px;
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: -15px;
+                bottom: 4px;
+                width: 1px;
+                height: 20px;
+                background-color: #bebebe;
+            }
         }
     }
 }

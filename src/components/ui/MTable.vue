@@ -34,9 +34,7 @@ defineProps({
     thead {
         tr {
             background-color: #ebebeb;
-            display: grid;
             border-radius: 6px;
-            grid-template-columns: repeat(3, 1fr);
 
             th {
                 padding: 6px 12px;
@@ -47,14 +45,10 @@ defineProps({
 
     tbody {
         margin-top: 12px;
-        display: block;
         
         tr {
             margin-top: 8px;
             background-color: #fff;
-            display: grid;
-            align-items: center;
-            grid-template-columns: repeat(3, 1fr);
             box-shadow: 1px 1px 15px #ebebeb;
             border-radius: 6px;
 
