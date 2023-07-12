@@ -23,6 +23,7 @@
                     <MInput v-model="form.password" placeholder="Пароль" type="password" />
                     <MInput v-model="form.firstname" placeholder="Имя" />
                     <MInput v-model="form.lastname" placeholder="Фамилия" />
+                    <MInput v-model="form.image" placeholder="Аватарка" />
                     <MSelect v-model="form.role_list" :items="rolesStore.roles" />
                     <MButton color="primary" :loading="buttonsLoading.add" @click="submitAdd">
                         Сохранить
@@ -35,6 +36,7 @@
                     <MInput v-model="form.username" placeholder="Логин" />
                     <MInput v-model="form.firstname" placeholder="Имя" />
                     <MInput v-model="form.lastname" placeholder="Фамилия" />
+                    <MInput v-model="form.image" placeholder="Аватарка" />
                     <MSelect v-model="form.role_list" :items="rolesStore.roles" />
                     <MButton color="primary" :loading="buttonsLoading.edit" @click="submitEdit">
                         Сохранить
@@ -91,6 +93,10 @@ const cols = [
     {
         key: 'lastname',
         name: 'Фамилия'
+    },
+    {
+        key: 'image',
+        name: 'Аватарка'
     }
 ]
 
@@ -109,12 +115,19 @@ const form = reactive({
     password: '',
     firstname: '',
     lastname: '',
+    image: '',
     role_list: []
 })
 
 const selectedRow = ref(null)
 
 const handleAdd = () => {
+    form.username = ''
+    form.firstname = ''
+    form.lastname = ''
+    form.image = ''
+    form.role_list = []
+
     toggleModal('add')
 }
 
@@ -122,6 +135,7 @@ const handleEdit = (row) => {
     form.username = row.username
     form.firstname = row.firstname
     form.lastname = row.lastname
+    form.image = row.image
     form.role_list = row.role_list    
 
     selectedRow.value = row
