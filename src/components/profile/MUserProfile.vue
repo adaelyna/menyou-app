@@ -1,20 +1,25 @@
 <template>
     <div class="user-profile">
         <MButton color="transparent" @click="toggleDropdown" v-click-outside="closeDropdown">
-            <span class="user-profile__button"> {{ user.firstname }} {{ user.lastname }} </span>
+            <div class="user-profile__gen">
+                <div class="user-profile__image">
+                    <img :src="user.image || 'https://icon-library.com/images/anonymous-icon-png/anonymous-icon-png-5.jpg'" :alt="user.firstname" />
+                </div>
+                <span class="user-profile__text"> {{ user.firstname }} {{ user.lastname }} </span>
+            </div>
         </MButton>
 
         <div v-if="isOpen" class="dropdown">
             <ul>
                 <li>
                     <RouterLink to="/">
-                        <img src="@/assets/images/user-icon.svg" alt="Профиль">
+                        <img src="@/assets/images/user-icon.svg" alt="Профиль" />
                         <span>Профиль</span>
                     </RouterLink>
                 </li>
                 <li>
                     <MButton color="transparent" @click="logoutUser">
-                        <img src="@/assets/images/logout-icon.svg" alt="Выйти">
+                        <img src="@/assets/images/logout-icon.svg" alt="Выйти" />
                         <span>Выйти</span>
                     </MButton>
                 </li>
@@ -50,15 +55,36 @@ const logoutUser = () => {
 <style scoped lang="scss">
 .user-profile {
     position: relative;
-    
-    &__button {
+
+    &__gen {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__image {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        overflow: hidden;
+
+        img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+    }
+
+    &__text {
         font-size: 18px;
     }
 }
 
 .dropdown {
     position: absolute;
-    top: 24px;
+    top: 36px;
+    right: 0;
     background-color: #fff;
     padding: 12px;
     border-radius: 6px;
@@ -69,7 +95,7 @@ const logoutUser = () => {
             margin-bottom: 8px;
 
             a {
-                color: #242424 ;
+                color: #242424;
                 font-size: 16px;
                 display: flex;
                 align-items: center;

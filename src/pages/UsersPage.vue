@@ -83,6 +83,10 @@ const { buttonsLoading } = storeToRefs(usersStore)
 
 const cols = [
     {
+        key: 'image',
+        name: 'Аватарка'
+    },
+    {
         key: 'username',
         name: 'Логин'
     },
@@ -93,10 +97,6 @@ const cols = [
     {
         key: 'lastname',
         name: 'Фамилия'
-    },
-    {
-        key: 'image',
-        name: 'Аватарка'
     }
 ]
 
@@ -136,7 +136,7 @@ const handleEdit = (row) => {
     form.firstname = row.firstname
     form.lastname = row.lastname
     form.image = row.image
-    form.role_list = row.role_list    
+    form.role_list = row.role_list
 
     selectedRow.value = row
 
