@@ -74,6 +74,19 @@ export const useUsersStore = defineStore('users', () => {
             })
     }
 
+    const deleteUser = (userId) => {
+        buttonsLoading.delete = true
+
+        return usersApi
+            .deleteUser(userId)
+            .then(() => {
+                users.value = users.value.filter((user) => user.id !== userId)
+            })
+            .finally(() => {
+                buttonsLoading.delete = false
+            })
+    }
+
     return {
         isLoading,
         total,
@@ -81,6 +94,7 @@ export const useUsersStore = defineStore('users', () => {
         buttonsLoading,
         getUsers,
         addUser,
-        updateUser
+        updateUser,
+        deleteUser
     }
 })

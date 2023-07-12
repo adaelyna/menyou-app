@@ -42,7 +42,7 @@ const { user } = storeToRefs(authStore)
 const isMaster = ref(false)
 
 const checkIsMaster = () => {
-    isMaster.value = authStore.user.role_list.some((role) => role.code === 'MSR')
+    isMaster.value = authStore.user.role_list.some((role) => role.code === 'MASTER')
 }
 
 watch(

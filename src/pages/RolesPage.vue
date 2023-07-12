@@ -146,34 +146,6 @@ const handleEdit = (row) => {
 </script>
 
 <style scoped lang="scss">
-.box {
-    position: relative;
-    background-color: rgb(235, 235, 235);
-    padding: 24px;
-    border-radius: 16px;
-    max-width: 400px;
-    margin: 0 auto;
-    margin-top: 24px;
-}
-
-.close {
-    font-size: 18px;
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s;
-
-    &:hover {
-        transform: rotate(90deg);
-    }
-}
-
 .modal-content {
     display: flex;
     flex-direction: column;

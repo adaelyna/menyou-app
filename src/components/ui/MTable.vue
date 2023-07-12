@@ -9,8 +9,13 @@
 
         <tbody>
             <tr v-for="row of rows" :key="row.code">
-                <td v-for="col of cols" :key="col.key">{{ row[col.key] }}</td>
-                <td>
+                <td v-for="col of cols" :key="col.key" :class="col.key === 'image' ? 'width-min' : ''">
+                    <div v-if="col.key === 'image'" class="image">
+                        <img :src="row[col.key] || 'https://icon-library.com/images/anonymous-icon-png/anonymous-icon-png-5.jpg'" :alt="row[col.key]" />
+                    </div>
+                    <span v-else> {{ row[col.key] }}</span>
+                </td>
+                <td class="width-min">
                     <div class="table__actions">
                         <slot name="actions" :row="row"></slot>
                     </div>
@@ -45,7 +50,7 @@ defineProps({
 
     tbody {
         margin-top: 12px;
-        
+
         tr {
             margin-top: 8px;
             background-color: #fff;
@@ -55,6 +60,24 @@ defineProps({
             td {
                 padding: 10px 12px;
                 text-align: left;
+
+                .image {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    overflow: hidden;
+
+                    img {
+                        object-fit: cover;
+                        width: 100%;
+                        height: 100%;
+                        display: block;
+                    }
+                }
+
+                &.width-min {
+                    width: 5%;
+                }
             }
 
             &:first-child {

@@ -16,8 +16,13 @@ const updateUser = (userId, payload) => {
     })
 }
 
+const deleteUser = (userId) => {
+    return axios.delete(`/user/${userId}`)
+}
+
 export default {
     getUsers,
     addUser,
-    updateUser
+    updateUser,
+    deleteUser
 }
