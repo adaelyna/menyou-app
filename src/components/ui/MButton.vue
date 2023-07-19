@@ -42,11 +42,11 @@ defineProps({
     }
 
     &.primary {
-        background-color: #0828fe;
+        background-color: $primary;
         color: #fff;
 
         &:hover {
-            background-color: #0520d2;
+            background-color: $primary-hover;
         }
     }
 
