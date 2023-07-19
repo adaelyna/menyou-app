@@ -9,7 +9,7 @@
             </div>
         </MButton>
 
-        <div v-if="isOpen" class="dropdown">
+        <div v-show="isOpen" class="dropdown">
             <ul>
                 <li>
                     <RouterLink to="/">
