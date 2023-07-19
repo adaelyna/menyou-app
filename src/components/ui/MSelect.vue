@@ -84,7 +84,7 @@ const select = (item) => {
         left: 0;
         top: 99%;
         width: 100%;
-        background-color: #fff;
+        background-color: $white;
         padding: 6px 0;
         border-bottom-left-radius: 8px;
         border-bottom-right-radius: 8px;

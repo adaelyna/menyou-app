@@ -21,7 +21,7 @@ defineProps({
 
 <style scoped lang="scss">
 .meal-card {
-    background-color: #fff;
+    background-color: $white;
     border-radius: 12px;
     padding: 16px;
     display: flex;

@@ -85,7 +85,7 @@ const logoutUser = () => {
     position: absolute;
     top: 36px;
     right: 0;
-    background-color: #fff;
+    background-color: $white;
     padding: 12px;
     border-radius: 6px;
     box-shadow: 1px 1px 10px #2424241a;
@@ -95,7 +95,7 @@ const logoutUser = () => {
             margin-bottom: 8px;
 
             a {
-                color: #242424;
+                color: $dark;
                 font-size: 16px;
                 display: flex;
                 align-items: center;
@@ -103,7 +103,7 @@ const logoutUser = () => {
             }
 
             .btn.transparent {
-                color: #242424;
+                color: $dark;
                 font-size: 16px;
                 display: flex;
                 align-items: center;

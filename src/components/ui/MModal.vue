@@ -61,7 +61,7 @@ const onClose = () => {
 
 .modal-box {
     position: relative;
-    background: #fff;
+    background: $white;
     border-radius: 6px;
     padding: 24px;
     padding-top: 12px;

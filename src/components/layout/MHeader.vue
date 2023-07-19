@@ -59,7 +59,7 @@ watch(
 
 <style scoped lang="scss">
 .header {
-    background-color: #242424;
+    background-color: $dark;
 
     &__inner {
         padding: 10px 0;
@@ -106,7 +106,7 @@ watch(
     a {
         font-size: 30px;
         line-height: 30px;
-        color: #fff;
+        color: $white;
     }
 }
 </style>

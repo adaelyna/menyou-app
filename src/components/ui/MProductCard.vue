@@ -23,7 +23,7 @@ defineProps({
 
 <style scoped lang="scss">
 .product-card {
-    background-color: #fff;
+    background-color: $white;
     border-radius: 12px;
     padding: 16px;
     display: flex;
@@ -75,7 +75,7 @@ defineProps({
     border-radius: 12px;
     padding: 4px 12px;
     background-color: red;
-    color: #fff;
+    color: $white;
     max-width: 150px;
     text-align: center;
 }

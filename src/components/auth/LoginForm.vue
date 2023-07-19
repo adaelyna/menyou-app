@@ -46,7 +46,7 @@ const submit = () => {
     padding: 24px;
     max-width: 400px;
     border-radius: 12px;
-    background-color: #fff;
+    background-color: $white;
 
     input {
         margin-bottom: 10px;

@@ -53,7 +53,7 @@ defineProps({
 
         tr {
             margin-top: 8px;
-            background-color: #fff;
+            background-color: $white;
             box-shadow: 1px 1px 15px #ebebeb;
             border-radius: 6px;
 

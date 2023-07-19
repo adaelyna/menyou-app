@@ -27,8 +27,8 @@
 
 <style scoped lang="scss">
 .footer {
-    background-color: #242424;
-    color: white;
+    background-color: $dark;
+    color: $white;
     margin-top: auto;
 
     &__inner {
@@ -50,7 +50,7 @@
     a {
         font-size: 30px;
         line-height: 30px;
-        color: white;
+        color: $white;
     }
 }
 </style>

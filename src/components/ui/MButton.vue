@@ -43,7 +43,7 @@ defineProps({
 
     &.primary {
         background-color: $primary;
-        color: #fff;
+        color: $white;
 
         &:hover {
             background-color: $primary-hover;
@@ -52,7 +52,7 @@ defineProps({
 
     &.secondary {
         background-color: #3b48a1;
-        color: #fff;
+        color: $white;
 
         &:hover {
             background-color: #2a3684;
@@ -61,7 +61,7 @@ defineProps({
 
     &.success {
         background-color: green;
-        color: #fff;
+        color: $white;
 
         &:hover {
             background-color: rgb(1, 84, 1);
@@ -70,7 +70,7 @@ defineProps({
 
     &.error {
         background-color: red;
-        color: #fff;
+        color: $white;
 
         &:hover {
             background-color: tomato;
@@ -79,7 +79,7 @@ defineProps({
 
     &.warning {
         background-color: orange;
-        color: #fff;
+        color: $white;
 
         &:hover {
             background-color: rgb(181, 117, 0);
@@ -87,7 +87,7 @@ defineProps({
     }
 
     &.transparent {
-        color: #fff;
+        color: $white;
         background-color: transparent;
         padding: 0;
         border-radius: 0;

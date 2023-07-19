@@ -51,7 +51,7 @@ defineProps({
     }
 
     &.preloader {
-        background: white;
+        background: $white;
     }
 }
 
