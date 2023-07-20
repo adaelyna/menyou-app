@@ -10,7 +10,14 @@ const addMeal = (payload) => {
     })
 }
 
+const editMeal = (mealId, payload) => {
+    return axios.put(`/meal/${mealId}`, {
+        meal: payload
+    })
+}
+
 export default {
     getMeals,
-    addMeal
+    addMeal,
+    editMeal
 }

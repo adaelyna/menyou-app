@@ -13,6 +13,9 @@
                     <div v-if="col.key === 'image'" class="image">
                         <img :src="row[col.key] || 'https://icon-library.com/images/anonymous-icon-png/anonymous-icon-png-5.jpg'" :alt="row[col.key]" />
                     </div>
+
+                    <span v-else-if="col.key === 'role_list'">{{ getRolesName(row[col.key]) }}</span>
+
                     <span v-else> {{ row[col.key] }}</span>
                 </td>
                 <td class="width-min">
@@ -30,6 +33,11 @@ defineProps({
     cols: { type: Array, required: false, default: () => [] },
     rows: { type: Array, required: false, default: () => [] }
 })
+
+const getRolesName = (roles) => {
+    return roles.map((role) => role.name).join(', ')
+}
+
 </script>
 
 <style scoped lang="scss">

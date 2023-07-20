@@ -65,7 +65,7 @@ const select = (item) => {
             color: rgb(144, 144, 144);
         }
         &.error {
-            border: 1px solid red;
+            border: 1px solid $red;
         }
 
         img {

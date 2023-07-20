@@ -150,7 +150,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .page {
-    background-color: #ececec;
+    background-color: $light-gray;
 }
 
 .products-list {
