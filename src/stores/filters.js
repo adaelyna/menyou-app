@@ -14,6 +14,10 @@ export const useFiltersStore = defineStore('filters', () => {
     })
 
     const getFilters = () => {
+        if (filters.value) {
+            return
+        }
+
         isLoading.value = true
         filters.value = null
 

@@ -51,7 +51,8 @@
             <MModal v-model="modalState.delete">
                 <div class="modal-content">
                     <h4>Вы действительно хотите удалить?</h4>
-                    <MButton
+                    <div class="modal-actions">
+                        <MButton
                         color="primary"
                         full
                         :loading="buttonsLoading.delete"
@@ -60,6 +61,7 @@
                         Да
                     </MButton>
                     <MButton full @click="toggleModal('delete')"> Нет </MButton>
+                    </div>
                 </div>
             </MModal>
         </div>
@@ -150,7 +152,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .page {
-    background-color: $light-gray;
+    background-color: $gray-light;
 }
 
 .products-list {
@@ -159,10 +161,15 @@ onMounted(() => {
     grid-template-columns: repeat(4, 1fr);
     margin-top: 20px;
 }
-
 .modal-content {
     display: flex;
     flex-direction: column;
     gap: 12px;
+}
+
+.modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 </style>

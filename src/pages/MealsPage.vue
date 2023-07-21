@@ -89,7 +89,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .page {
-    background-color: $light-gray;
+    background-color: $gray-light;
 }
 
 .meals-list {

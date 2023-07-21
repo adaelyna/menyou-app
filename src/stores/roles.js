@@ -14,6 +14,10 @@ export const useRolesStore = defineStore('roles', () => {
     })
 
     const getRoles = () => {
+        if (roles.value) {
+            return
+        }
+
         isLoading.value = true
         roles.value = null
 
