@@ -39,14 +39,14 @@ export const useFiltersStore = defineStore('filters', () => {
         buttonsLoading.add = true
 
         return filtersApi
-        .addFilter(form)
-        .then(({ data }) => {
-            filters.value = [...filters.value, data.filter]
-            total.value++
-        })
-        .finally(() => {
-            buttonsLoading.add = false
-        })
+            .addFilter(form)
+            .then(({ data }) => {
+                filters.value = [...filters.value, data.filter]
+                total.value++
+            })
+            .finally(() => {
+                buttonsLoading.add = false
+            })
     }
 
     const updateFilter = (filterId, form) => {
@@ -62,6 +62,7 @@ export const useFiltersStore = defineStore('filters', () => {
                             name: data.filter.name
                         }
                     }
+
                     return filter
                 })
             })
@@ -74,13 +75,13 @@ export const useFiltersStore = defineStore('filters', () => {
         buttonsLoading.delete = true
 
         return filtersApi
-        .deleteFilter(filterId)
-        .then(() => {
-            filters.value = filters.value.filter((filter) => filter.id != filterId)
-        })
-        .finally(() => {
-            buttonsLoading.delete = false
-        })
+            .deleteFilter(filterId)
+            .then(() => {
+                filters.value = filters.value.filter((filter) => filter.id !== filterId)
+            })
+            .finally(() => {
+                buttonsLoading.delete = false
+            })
     }
 
     return {

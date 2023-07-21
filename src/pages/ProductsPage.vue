@@ -53,14 +53,14 @@
                     <h4>Вы действительно хотите удалить?</h4>
                     <div class="modal-actions">
                         <MButton
-                        color="primary"
-                        full
-                        :loading="buttonsLoading.delete"
-                        @click="submitDelete"
-                    >
-                        Да
-                    </MButton>
-                    <MButton full @click="toggleModal('delete')"> Нет </MButton>
+                            color="primary"
+                            full
+                            :loading="buttonsLoading.delete"
+                            @click="submitDelete"
+                        >
+                            Да
+                        </MButton>
+                        <MButton full @click="toggleModal('delete')"> Нет </MButton>
                     </div>
                 </div>
             </MModal>
