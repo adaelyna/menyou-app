@@ -14,6 +14,34 @@
                     <MButton color="transparent" @click="handleDelete(row)">
                         <img src="@/assets/images/delete-icon-color.svg" alt="Удалить" />
                     </MButton>
+                    <MButton v-if="row.is_blocked" color="transparent" @click="handleUnblock(row)">
+                        <svg
+                            class="lock-icon"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M19 11H5C3.89543 11 3 11.8954 3 13V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V13C21 11.8954 20.1046 11 19 11Z"
+                                stroke="#A6A6A6"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <path
+                                d="M7 11V7C7 5.67392 7.52678 4.40215 8.46447 3.46447C9.40215 2.52678 10.6739 2 12 2C13.3261 2 14.5979 2.52678 15.5355 3.46447C16.4732 4.40215 17 5.67392 17 7V11"
+                                stroke="#A6A6A6"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                    </MButton>
+                    <MButton v-else color="transparent" @click="handleBlock(row)">
+                        <img src="@/assets/images/unlock-icon-gray.svg" alt="Заблокировать" />
+                    </MButton>
                 </template>
             </MTable>
 
@@ -57,6 +85,40 @@
                             Да
                         </MButton>
                         <MButton full @click="toggleModal('delete')"> Нет </MButton>
+                    </div>
+                </div>
+            </MModal>
+
+            <MModal v-model="modalState.block">
+                <div class="modal-content">
+                    <h4>Заблокировать пользователя?</h4>
+                    <div class="modal-actions">
+                        <MButton
+                            color="primary"
+                            full
+                            :loading="buttonsLoading['edit']"
+                            @click="submitBlock"
+                        >
+                            Да
+                        </MButton>
+                        <MButton full @click="toggleModal('block')"> Нет </MButton>
+                    </div>
+                </div>
+            </MModal>
+
+            <MModal v-model="modalState.unblock">
+                <div class="modal-content">
+                    <h4>Разблокировать пользователя?</h4>
+                    <div class="modal-actions">
+                        <MButton
+                            color="primary"
+                            full
+                            :loading="buttonsLoading['edit']"
+                            @click="submitUnblock"
+                        >
+                            Да
+                        </MButton>
+                        <MButton full @click="toggleModal('unblock')"> Нет </MButton>
                     </div>
                 </div>
             </MModal>
@@ -107,7 +169,9 @@ const cols = [
 const modalState = reactive({
     add: false,
     edit: false,
-    delete: false
+    delete: false,
+    block: false,
+    unblock: false
 })
 
 const toggleModal = (key) => {
@@ -125,6 +189,14 @@ const form = reactive({
 
 const selectedRow = ref(null)
 
+const setForm = (row) => {
+    form.username = row.username
+    form.firstname = row.firstname
+    form.lastname = row.lastname
+    form.image = row.image
+    form.role_list = row.role_list
+}
+
 const handleAdd = () => {
     form.username = ''
     form.firstname = ''
@@ -136,11 +208,7 @@ const handleAdd = () => {
 }
 
 const handleEdit = (row) => {
-    form.username = row.username
-    form.firstname = row.firstname
-    form.lastname = row.lastname
-    form.image = row.image
-    form.role_list = row.role_list
+    setForm(row)
 
     selectedRow.value = row
 
@@ -151,6 +219,22 @@ const handleDelete = (row) => {
     selectedRow.value = row
 
     toggleModal('delete')
+}
+
+const handleBlock = (row) => {
+    setForm(row)
+
+    selectedRow.value = row
+
+    toggleModal('block')
+}
+
+const handleUnblock = (row) => {
+    setForm(row)
+
+    selectedRow.value = row
+
+    toggleModal('unblock')
 }
 
 const submitAdd = () => {
@@ -171,6 +255,28 @@ const submitDelete = () => {
     })
 }
 
+const submitBlock = () => {
+    usersStore
+        .updateUser(selectedRow.value.id, {
+            ...form,
+            is_blocked: true
+        })
+        .then(() => {
+            toggleModal('block')
+        })
+}
+
+const submitUnblock = () => {
+    usersStore
+        .updateUser(selectedRow.value.id, {
+            ...form,
+            is_blocked: false
+        })
+        .then(() => {
+            toggleModal('unblock')
+        })
+}
+
 onMounted(() => {
     usersStore.getUsers()
     rolesStore.getRoles()
@@ -187,5 +293,11 @@ onMounted(() => {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+.lock-icon {
+    path {
+        stroke: $orange;
+    }
 }
 </style>
