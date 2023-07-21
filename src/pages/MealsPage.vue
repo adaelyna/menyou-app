@@ -59,7 +59,9 @@ const modalState = reactive({
 const form = reactive({
     name: '',
     description: '',
-    image: ''
+    image: '',
+    product_list: [],
+    filter_list: []
 })
 
 const toggleModal = (key) => {
@@ -87,7 +89,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .page {
-    background-color: #ececec;
+    background-color: $gray-light;
 }
 
 .meals-list {

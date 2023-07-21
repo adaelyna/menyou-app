@@ -56,7 +56,7 @@ defineProps({
     }
 
     &__desc {
-        color: #7b7b7b;
+        color: $gray;
         font-size: 16px;
         line-height: 125%;
     }

@@ -97,6 +97,10 @@ const cols = [
     {
         key: 'lastname',
         name: 'Фамилия'
+    },
+    {
+        key: 'role_list',
+        name: 'Роль'
     }
 ]
 

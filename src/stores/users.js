@@ -14,6 +14,10 @@ export const useUsersStore = defineStore('users', () => {
     })
 
     const getUsers = () => {
+        if (users.value) {
+            return
+        }
+        
         isLoading.value = true
         users.value = null
 

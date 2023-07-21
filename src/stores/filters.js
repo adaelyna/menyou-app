@@ -1,30 +1,30 @@
 import { defineStore } from 'pinia'
-import { reactive, ref } from 'vue'
+import { ref, reactive } from 'vue'
 
-import rolesApi from '@/api/roles'
+import filtersApi from '../api/filters'
 
-export const useRolesStore = defineStore('roles', () => {
+export const useFiltersStore = defineStore('filters', () => {
     const isLoading = ref(false)
     const total = ref(0)
-    const roles = ref(null)
+    const filters = ref(null)
     const buttonsLoading = reactive({
         add: false,
         edit: false,
         delete: false
     })
 
-    const getRoles = () => {
-        if (roles.value) {
+    const getFilters = () => {
+        if (filters.value) {
             return
         }
 
         isLoading.value = true
-        roles.value = null
+        filters.value = null
 
-        rolesApi
-            .getRoles()
+        filtersApi
+            .getFilters()
             .then(({ data }) => {
-                roles.value = data.roles
+                filters.value = data.filters
                 total.value = data.total
             })
             .catch((e) => {
@@ -35,13 +35,13 @@ export const useRolesStore = defineStore('roles', () => {
             })
     }
 
-    const addRole = (form) => {
+    const addFilter = (form) => {
         buttonsLoading.add = true
 
-        return rolesApi
-            .addRole(form)
+        return filtersApi
+            .addFilter(form)
             .then(({ data }) => {
-                roles.value = [...roles.value, data.role]
+                filters.value = [...filters.value, data.filter]
                 total.value++
             })
             .finally(() => {
@@ -49,36 +49,35 @@ export const useRolesStore = defineStore('roles', () => {
             })
     }
 
-    const updateRole = (roleId, form) => {
+    const updateFilter = (filterId, form) => {
         buttonsLoading.edit = true
 
-        return rolesApi
-            .updateRole(roleId, form)
+        return filtersApi
+            .editFilter(filterId, form)
             .then(({ data }) => {
-                roles.value = roles.value.map((role) => {
-                    if (role.id === roleId) {
+                filters.value = filters.value.map((filter) => {
+                    if (filter.id === filterId) {
                         return {
-                            ...role,
-                            code: data.role.code,
-                            name: data.role.name
+                            ...filter,
+                            name: data.filter.name
                         }
                     }
 
-                    return role
+                    return filter
                 })
             })
             .finally(() => {
-                buttonsLoading.add = false
+                buttonsLoading.edit = false
             })
     }
 
-    const deleteRole = (roleId) => {
+    const deleteFilter = (filterId) => {
         buttonsLoading.delete = true
 
-        return rolesApi
-            .deleteRole(roleId)
+        return filtersApi
+            .deleteFilter(filterId)
             .then(() => {
-                roles.value = roles.value.filter((role) => role.id !== roleId)
+                filters.value = filters.value.filter((filter) => filter.id !== filterId)
             })
             .finally(() => {
                 buttonsLoading.delete = false
@@ -88,11 +87,11 @@ export const useRolesStore = defineStore('roles', () => {
     return {
         isLoading,
         total,
-        roles,
+        filters,
         buttonsLoading,
-        getRoles,
-        addRole,
-        deleteRole,
-        updateRole
+        getFilters,
+        addFilter,
+        updateFilter,
+        deleteFilter
     }
 })

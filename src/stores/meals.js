@@ -14,6 +14,10 @@ export const useMealsStore = defineStore('meals', () => {
     })
 
     const getMeals = () => {
+        if (meals.value) {
+            return
+        }
+
         isLoading.value = true
         meals.value = null
 

@@ -58,7 +58,7 @@ defineProps({
     }
 
     &__desc {
-        color: #7b7b7b;
+        color: $gray;
         font-size: 16px;
         line-height: 125%;
     }
@@ -74,7 +74,7 @@ defineProps({
 .out-of-stock {
     border-radius: 12px;
     padding: 4px 12px;
-    background-color: red;
+    background-color: $red;
     color: #fff;
     max-width: 150px;
     text-align: center;

@@ -14,6 +14,10 @@ export const useProductsStore = defineStore('products', () => {
     })
 
     const getProducts = () => {
+        if (products.value) {
+            return
+        }
+
         isLoading.value = true
         products.value = null
 

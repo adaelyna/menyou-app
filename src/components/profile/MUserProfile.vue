@@ -3,7 +3,13 @@
         <MButton color="transparent" @click="toggleDropdown" v-click-outside="closeDropdown">
             <div class="user-profile__gen">
                 <div class="user-profile__image">
-                    <img :src="user.image || 'https://icon-library.com/images/anonymous-icon-png/anonymous-icon-png-5.jpg'" :alt="user.firstname" />
+                    <img
+                        :src="
+                            user.image ||
+                            'https://icon-library.com/images/anonymous-icon-png/anonymous-icon-png-5.jpg'
+                        "
+                        :alt="user.firstname"
+                    />
                 </div>
                 <span class="user-profile__text"> {{ user.firstname }} {{ user.lastname }} </span>
             </div>
@@ -19,8 +25,10 @@
                 </li>
                 <li>
                     <MButton color="transparent" @click="logoutUser">
-                        <img src="@/assets/images/logout-icon.svg" alt="Выйти" />
-                        <span>Выйти</span>
+                        <div class="logout">
+                            <img src="@/assets/images/logout-icon.svg" alt="Выйти" />
+                            <span>Выйти</span>
+                        </div>
                     </MButton>
                 </li>
             </ul>
@@ -93,6 +101,13 @@ const logoutUser = () => {
     ul {
         li {
             margin-bottom: 8px;
+            
+            .logout {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
 
             a {
                 color: #242424;

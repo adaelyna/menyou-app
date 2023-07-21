@@ -2,13 +2,13 @@
     <div class="page">
         <div class="container">
             <div class="page-header">
-                <h1>Роли</h1>
+                <h1>Фильтры</h1>
                 <MButton color="primary" @click="handleAdd">Добавить</MButton>
             </div>
 
-            <MLoader v-if="rolesStore.isLoading" />
+            <MLoader v-if="filtersStore.isLoading" />
 
-            <MTable v-if="rolesStore.roles" :cols="cols" :rows="rolesStore.roles">
+            <MTable v-if="filtersStore.filters" :cols="cols" :rows="filtersStore.filters">
                 <template #actions="{ row }">
                     <MButton color="transparent" @click="handleEdit(row)">
                         <img src="@/assets/images/edit-icon-color.svg" alt="Редактировать" />
@@ -21,7 +21,6 @@
 
             <MModal v-model="modalState.add">
                 <div class="modal-content">
-                    <MInput v-model="form.code" placeholder="Код" />
                     <MInput v-model="form.name" placeholder="Наименование" />
                     <MButton color="primary" :loading="buttonsLoading['add']" @click="submitAdd">
                         Сохранить
@@ -31,7 +30,6 @@
 
             <MModal v-model="modalState.edit">
                 <div class="modal-content">
-                    <MInput v-model="form.code" placeholder="Код" />
                     <MInput v-model="form.name" placeholder="Наименование" />
                     <MButton color="primary" :loading="buttonsLoading['edit']" @click="submitEdit">
                         Сохранить
@@ -63,15 +61,16 @@
 import { onMounted, reactive, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 
-import { useRolesStore } from '../stores/roles'
+import { useFiltersStore } from '../stores/filters'
+
 import MTable from '@/components/ui/MTable.vue'
 import MLoader from '@/components/ui/MLoader.vue'
 import MButton from '@/components/ui/MButton.vue'
 import MInput from '@/components/ui/MInput.vue'
 import MModal from '@/components/ui/MModal.vue'
 
-const rolesStore = useRolesStore()
-const { buttonsLoading } = storeToRefs(rolesStore)
+const filtersStore = useFiltersStore()
+const { buttonsLoading } = storeToRefs(filtersStore)
 const modalState = reactive({
     add: false,
     edit: false,
@@ -80,24 +79,23 @@ const modalState = reactive({
 
 const cols = [
     {
-        key: 'code',
-        name: 'Код'
+        key: 'id',
+        name: 'Номер'
     },
     {
         key: 'name',
-        name: 'Наименование'
+        name: 'Имя'
     }
 ]
 
+const selectedRow = ref(null)
+
 const form = reactive({
-    code: '',
     name: ''
 })
 
-const selectedRow = ref(null)
-
 onMounted(() => {
-    rolesStore.getRoles()
+    filtersStore.getFilters()
 })
 
 const toggleModal = (key) => {
@@ -105,43 +103,41 @@ const toggleModal = (key) => {
 }
 
 const submitAdd = () => {
-    rolesStore.addRole(form).then(() => {
+    filtersStore.addFilter(form).then(() => {
         toggleModal('add')
     })
 }
 
 const submitEdit = () => {
-    rolesStore.updateRole(selectedRow.value.id, form).then(() => {
+    filtersStore.updateFilter(selectedRow.value.id, form).then(() => {
         toggleModal('edit')
     })
 }
 
 const submitDelete = () => {
-    rolesStore.deleteRole(selectedRow.value.id).then(() => {
+    filtersStore.deleteFilter(selectedRow.value.id).then(() => {
         toggleModal('delete')
     })
 }
 
 const handleAdd = () => {
-    form.code = ''
     form.name = ''
 
     toggleModal('add')
+}
+
+const handleEdit = (row) => {
+    form.name = row.name
+
+    selectedRow.value = row
+
+    toggleModal('edit')
 }
 
 const handleDelete = (row) => {
     selectedRow.value = row
 
     toggleModal('delete')
-}
-
-const handleEdit = (row) => {
-    form.code = row.code
-    form.name = row.name
-
-    selectedRow.value = row
-
-    toggleModal('edit')
 }
 </script>
 
