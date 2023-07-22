@@ -26,6 +26,8 @@
                     <MInput v-model="form.name" placeholder="Наименование" />
                     <MInput v-model="form.description" placeholder="Описание" />
                     <MInput v-model="form.image" placeholder="Вставьте URL картинки" />
+                    <MMultiSelect v-model="form.product_list" :items="productsStore.products" placeholder="Выберите продукты" />
+                    <MMultiSelect v-model="form.filter_list" :items="filterStore.filters" placeholder="Выберите фильтры" />
                     <MButton color="primary" :loading="buttonsLoading['add']" @click="submitAdd">
                         Сохранить
                     </MButton>
@@ -46,8 +48,13 @@ import MMealCard from '../components/ui/MMealCard.vue'
 import MLoader from '../components/ui/MLoader.vue'
 import MInput from '@/components/ui/MInput.vue'
 import MModal from '@/components/ui/MModal.vue'
+import MMultiSelect from '@/components/ui/MMultiSelect.vue'
+import { useProductsStore} from '../stores/products'
+import { useFiltersStore } from '../stores/filters'
 
 const mealsStore = useMealsStore()
+const productsStore = useProductsStore()
+const filterStore = useFiltersStore()
 const { buttonsLoading } = storeToRefs(mealsStore)
 
 const modalState = reactive({
@@ -84,6 +91,8 @@ const handleAdd = () => {
 
 onMounted(() => {
     mealsStore.getMeals()
+    productsStore.getProducts()
+    filterStore.getFilters()
 })
 </script>
 

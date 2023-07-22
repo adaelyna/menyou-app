@@ -37,6 +37,23 @@ export const useMealsStore = defineStore('meals', () => {
 
     const addMeal = (form) => {
         buttonsLoading.add = true
+        const parsedProductList = []
+        const parsedFilterList = []
+
+        form.product_list.forEach((product) => {
+            if (typeof product === 'object') {
+                parsedProductList.push(product.id)
+            }
+        })
+        
+        form.filter_list.forEach((filter) => {
+            if (typeof filter === 'object') {
+                parsedFilterList.push(filter.id)
+            }
+        })
+        
+        form.filter_list = [...parsedFilterList]
+        form.product_list = [...parsedProductList]
 
         return mealsApi
             .addMeal(form)

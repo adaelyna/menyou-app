@@ -90,6 +90,7 @@ const select = (item) => {
         border-bottom-right-radius: 8px;
         border: 1px solid rgba(92, 99, 112, 0.32);
         border-radius: 8px;
+        z-index: 2;
 
         ul {
             li {
