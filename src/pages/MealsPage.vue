@@ -12,10 +12,18 @@
                 <MMealCard v-for="meal of mealsStore.meals" :key="meal.name" :meal="meal">
                     <template #actions>
                         <MButton color="transparent">
-                            <img src="@/assets/images/edit-icon-color.svg" alt="Редактировать" />
+                            <img
+                                src="@/assets/images/edit-icon-color.svg"
+                                alt="Редактировать"
+                                @click="handleEdit(meal)"
+                            />
                         </MButton>
                         <MButton color="transparent">
-                            <img src="@/assets/images/delete-icon-color.svg" alt="Удалить" />
+                            <img
+                                src="@/assets/images/delete-icon-color.svg"
+                                alt="Удалить"
+                                @click="handleDelete"
+                            />
                         </MButton>
                     </template>
                 </MMealCard>
@@ -26,9 +34,38 @@
                     <MInput v-model="form.name" placeholder="Наименование" />
                     <MInput v-model="form.description" placeholder="Описание" />
                     <MInput v-model="form.image" placeholder="Вставьте URL картинки" />
-                    <MMultiSelect v-model="form.product_list" :items="productsStore.products" placeholder="Выберите продукты" />
-                    <MMultiSelect v-model="form.filter_list" :items="filterStore.filters" placeholder="Выберите фильтры" />
+                    <MMultiSelect
+                        v-model="form.product_list"
+                        :items="productsStore.products"
+                        placeholder="Выберите продукты"
+                    />
+                    <MMultiSelect
+                        v-model="form.filter_list"
+                        :items="filterStore.filters"
+                        placeholder="Выберите фильтры"
+                    />
                     <MButton color="primary" :loading="buttonsLoading['add']" @click="submitAdd">
+                        Сохранить
+                    </MButton>
+                </div>
+            </MModal>
+
+            <MModal v-model="modalState.edit">
+                <div class="modal-content">
+                    <MInput v-model="form.name" placeholder="Наименование" />
+                    <MInput v-model="form.description" placeholder="Описание" />
+                    <MInput v-model="form.image" placeholder="Вставьте URL картинки" />
+                    <MMultiSelect
+                        v-model="form.product_list"
+                        :items="productsStore.products"
+                        placeholder="Выберите продукты"
+                    />
+                    <MMultiSelect
+                        v-model="form.filter_list"
+                        :items="filterStore.filters"
+                        placeholder="Выберите фильтры"
+                    />
+                    <MButton color="primary" :loading="buttonsLoading['edit']" @click="submitEdit">
                         Сохранить
                     </MButton>
                 </div>
@@ -38,7 +75,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 
 import { useMealsStore } from '../stores/meals'
@@ -49,7 +86,7 @@ import MLoader from '../components/ui/MLoader.vue'
 import MInput from '@/components/ui/MInput.vue'
 import MModal from '@/components/ui/MModal.vue'
 import MMultiSelect from '@/components/ui/MMultiSelect.vue'
-import { useProductsStore} from '../stores/products'
+import { useProductsStore } from '../stores/products'
 import { useFiltersStore } from '../stores/filters'
 
 const mealsStore = useMealsStore()
@@ -71,6 +108,8 @@ const form = reactive({
     filter_list: []
 })
 
+const selectedMeal = ref(null)
+
 const toggleModal = (key) => {
     modalState[key] = !modalState[key]
 }
@@ -81,12 +120,33 @@ const submitAdd = () => {
     })
 }
 
+const submitEdit = () => {
+    mealsStore.updateMeal(selectedMeal.value.id, form).then(() => {
+        toggleModal('edit')
+    })
+}
+
 const handleAdd = () => {
     form.name = ''
     form.description = ''
     form.image = ''
 
     toggleModal('add')
+}
+
+const handleEdit = (meal) => {
+    form.name = meal.name
+    form.description = meal.description
+    form.image = meal.image
+    form.filter_list = meal.filter_list
+    form.product_list = meal.product_listс
+
+    console.log(meal.filter_list)
+
+
+    selectedMeal.value = meal
+
+    toggleModal('edit')
 }
 
 onMounted(() => {

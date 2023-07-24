@@ -45,13 +45,13 @@ export const useMealsStore = defineStore('meals', () => {
                 parsedProductList.push(product.id)
             }
         })
-        
+
         form.filter_list.forEach((filter) => {
             if (typeof filter === 'object') {
                 parsedFilterList.push(filter.id)
             }
         })
-        
+
         form.filter_list = [...parsedFilterList]
         form.product_list = [...parsedProductList]
 
@@ -66,12 +66,51 @@ export const useMealsStore = defineStore('meals', () => {
             })
     }
 
+    const updateMeal = (mealId, form) => {
+        buttonsLoading.edit = true
+        const parsedProductList = []
+        const parsedFilterList = []
+
+        form.product_list.forEach((product) => {
+            if (typeof product === 'object') {
+                parsedProductList.push(product.id)
+            }
+        })
+
+        form.filter_list.forEach((filter) => {
+            if (typeof filter === 'object') {
+                parsedFilterList.push(filter.id)
+            }
+        })
+
+        form.filter_list = [...parsedFilterList]
+        form.product_list = [...parsedProductList]
+
+        return mealsApi
+            .editMeal(mealId, form)
+            .then(({ data }) => {
+                meals.value = meals.value.map((meal) => {
+                    if (meal.id === mealId) {
+                        return {
+                            ...data.meal
+                        }
+                    }
+
+                    return meal
+                })
+            })
+            .finally(() => {
+                buttonsLoading.edit = false
+            })
+    }
+
     return {
         isLoading,
         buttonsLoading,
         total,
         meals,
         getMeals,
-        addMeal
+        addMeal,
+        updateMeal
     }
 })
