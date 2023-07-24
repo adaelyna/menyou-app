@@ -1,9 +1,9 @@
 <template>
     <div class="select">
         <div :class="['select__header', { isOpen }]" @click="toggleSelect">
-            <span v-if="selectedItems.length === 0">{{ placeholder }}</span>
+            <span v-if="modelValue.length === 0">{{ placeholder }}</span>
             <div v-else class="select__chips">
-                <span v-for="item of selectedItems" :key="item.id">
+                <span v-for="item of modelValue" :key="item.id">
                     {{ item.name }}
                     <svg
                         @click.stop="removeItem(item)"
@@ -39,7 +39,7 @@
                 <li v-for="item of items" :key="item.name" @click="selectItem(item)">
                     {{ item.name }}
                     <img
-                        v-if="selectedItems.includes(item)"
+                        v-if="modelValue.some((el) => el.id === item.id)"
                         src="@/assets/images/check-icon-secondary.svg"
                         alt="Check"
                     />
@@ -52,7 +52,7 @@
 <script setup>
 import { ref } from 'vue'
 
-defineProps({
+const props = defineProps({
     modelValue: { type: Array, required: true },
     placeholder: { type: String, required: false, default: 'Выберите' },
     items: { type: Array, required: false, default: () => [] }
@@ -61,28 +61,23 @@ defineProps({
 const emit = defineEmits(['update:modelValue'])
 
 const isOpen = ref(false)
-const selectedItems = ref([])
 
 const toggleSelect = () => {
     isOpen.value = !isOpen.value
 }
 
 const selectItem = (item) => {
-    if (selectedItems.value.includes(item)) {
+    if (props.modelValue.some((el) => el.id === item.id)) {
         removeItem(item)
 
         return
     }
 
-    selectedItems.value = [...selectedItems.value, item]
-
-    emit('update:modelValue', [...selectedItems.value])
+    emit('update:modelValue', [...props.modelValue, item])
 }
 
 const removeItem = (item) => {
-    const filteredItems = selectedItems.value.filter((el) => el.id !== item.id)
-
-    selectedItems.value = [...filteredItems]
+    const filteredItems = props.modelValue.filter((el) => el.id !== item.id)
 
     emit('update:modelValue', [...filteredItems])
 }
