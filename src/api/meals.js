@@ -16,8 +16,13 @@ const editMeal = (mealId, payload) => {
     })
 }
 
+const deleteMeal = (mealId) => {
+    return axios.delete(`/meal/${mealId}`)
+}
+
 export default {
     getMeals,
     addMeal,
-    editMeal
+    editMeal,
+    deleteMeal
 }

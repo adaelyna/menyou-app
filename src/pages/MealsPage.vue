@@ -22,7 +22,7 @@
                             <img
                                 src="@/assets/images/delete-icon-color.svg"
                                 alt="Удалить"
-                                @click="handleDelete"
+                                @click="handleDelete(meal)"
                             />
                         </MButton>
                     </template>
@@ -68,6 +68,23 @@
                     <MButton color="primary" :loading="buttonsLoading['edit']" @click="submitEdit">
                         Сохранить
                     </MButton>
+                </div>
+            </MModal>
+
+            <MModal v-model="modalState.delete">
+                <div class="modal-content">
+                    <h4>Вы действительно хотите удалить?</h4>
+                    <div class="modal-actions">
+                        <MButton
+                            color="primary"
+                            full
+                            :loading="buttonsLoading.delete"
+                            @click="submitDelete"
+                        >
+                            Да
+                        </MButton>
+                        <MButton full @click="toggleModal('delete')"> Нет </MButton>
+                    </div>
                 </div>
             </MModal>
         </div>
@@ -126,6 +143,12 @@ const submitEdit = () => {
     })
 }
 
+const submitDelete = () => {
+    mealsStore.deleteMeal(selectedMeal.value.id).then(() => {
+        toggleModal('delete')
+    })
+}
+
 const handleAdd = () => {
     form.name = ''
     form.description = ''
@@ -138,15 +161,18 @@ const handleEdit = (meal) => {
     form.name = meal.name
     form.description = meal.description
     form.image = meal.image
-    form.filter_list = meal.filter_list
-    form.product_list = meal.product_listс
-
-    console.log(meal.filter_list)
-
+    form.filter_list = [...meal.filter_list]
+    form.product_list = [...meal.product_list]
 
     selectedMeal.value = meal
 
     toggleModal('edit')
+}
+
+const handleDelete = (meal) => {
+    selectedMeal.value = meal
+
+    toggleModal('delete')
 }
 
 onMounted(() => {
@@ -172,5 +198,11 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     gap: 12px;
+}
+
+.modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 </style>

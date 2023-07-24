@@ -104,6 +104,20 @@ export const useMealsStore = defineStore('meals', () => {
             })
     }
 
+    const deleteMeal = (mealId) => {
+        buttonsLoading.delete = true
+
+        return mealsApi
+            .deleteMeal(mealId)
+            .then(() => {
+                meals.value = meals.value.filter((meal) => meal.id !== mealId)
+            })
+            .finally(() => {
+                buttonsLoading.delete = false
+            })
+    }
+
+
     return {
         isLoading,
         buttonsLoading,
@@ -111,6 +125,7 @@ export const useMealsStore = defineStore('meals', () => {
         meals,
         getMeals,
         addMeal,
-        updateMeal
+        updateMeal,
+        deleteMeal
     }
 })
