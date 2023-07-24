@@ -6,6 +6,11 @@
 
         <h4 class="meal-card__title">{{ meal.name }}</h4>
         <p class="meal-card__desc">{{ meal.description }}</p>
+        <div class="filter-list">
+            <div v-for="filter of meal.filter_list" :key="filter.name" class="filter-list__filters">
+                {{ filter.name }}
+            </div>
+        </div>
 
         <div class="meal-card__actions">
             <slot name="actions"></slot>
@@ -66,6 +71,18 @@ defineProps({
         align-items: center;
         justify-content: flex-end;
         gap: 12px;
+    }
+    .filter-list {
+        display: flex;
+        justify-content: flex-start;
+        gap: 5px;
+
+        &__filters {
+            background-color: $gray-light;
+            padding: 3px 5px;
+            border-radius: 5px;
+            color: $dark;
+        }
     }
 }
 </style>
