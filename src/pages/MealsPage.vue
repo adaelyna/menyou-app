@@ -9,7 +9,7 @@
             <MLoader v-if="mealsStore.isLoading" />
 
             <div v-if="mealsStore.meals" class="meals-list">
-                <MMealCard v-for="meal of mealsStore.meals" :key="meal.name" :meal="meal">
+                <MMealCard v-for="meal of mealsStore.meals" :key="meal.id" :meal="meal">
                     <template #actions>
                         <MButton color="transparent">
                             <img
@@ -39,11 +39,16 @@
                         :items="productsStore.products"
                         placeholder="Выберите продукты"
                     />
+
                     <MMultiSelect
                         v-model="form.filter_list"
                         :items="filterStore.filters"
                         placeholder="Выберите фильтры"
                     />
+                    <div class="modal-content__wrapper">
+                        <p>Добавить фильтры</p>
+                        <MButton color="success" size="small" @click="handleAddFilter">+</MButton>
+                    </div>
                     <MButton color="primary" :loading="buttonsLoading['add']" @click="submitAdd">
                         Сохранить
                     </MButton>
@@ -65,6 +70,10 @@
                         :items="filterStore.filters"
                         placeholder="Выберите фильтры"
                     />
+                    <div class="modal-content__wrapper">
+                        <p>Добавить фильтры</p>
+                        <MButton color="success" size="small" @click="handleAddFilter">+</MButton>
+                    </div>
                     <MButton color="primary" :loading="buttonsLoading['edit']" @click="submitEdit">
                         Сохранить
                     </MButton>
@@ -85,6 +94,19 @@
                         </MButton>
                         <MButton full @click="toggleModal('delete')"> Нет </MButton>
                     </div>
+                </div>
+            </MModal>
+
+            <MModal v-model="modalState.addFilter">
+                <div class="modal-content">
+                    <MInput v-model="formFilter.name" placeholder="Наименование" />
+                    <MButton
+                        color="primary"
+                        :loading="filterStore.buttonsLoading['add']"
+                        @click="submitFilter"
+                    >
+                        Сохранить
+                    </MButton>
                 </div>
             </MModal>
         </div>
@@ -114,7 +136,8 @@ const { buttonsLoading } = storeToRefs(mealsStore)
 const modalState = reactive({
     add: false,
     edit: false,
-    delete: false
+    delete: false,
+    addFilter: false
 })
 
 const form = reactive({
@@ -122,7 +145,11 @@ const form = reactive({
     description: '',
     image: '',
     product_list: [],
-    filter_list: []
+    filter_list: [],
+})
+
+const formFilter = reactive({
+    name: '',
 })
 
 const selectedMeal = ref(null)
@@ -135,6 +162,15 @@ const submitAdd = () => {
     mealsStore.addMeal(form).then(() => {
         toggleModal('add')
     })
+}
+
+const submitFilter = () => {
+    filterStore.addFilter(formFilter).then((data) => {
+        form.filter_list = [...form.filter_list, data.filter]
+        
+        toggleModal('addFilter')
+    })
+
 }
 
 const submitEdit = () => {
@@ -155,6 +191,12 @@ const handleAdd = () => {
     form.image = ''
 
     toggleModal('add')
+}
+
+const handleAddFilter = () => {
+    formFilter.name = ''
+
+    toggleModal('addFilter')
 }
 
 const handleEdit = (meal) => {
@@ -198,6 +240,14 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     gap: 12px;
+
+    &__wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+        align-items: center;
+        gap: 10px;
+    }
 }
 
 .modal-actions {

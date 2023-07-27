@@ -11,17 +11,53 @@
                 {{ filter.name }}
             </div>
         </div>
+        <div class="meal-card__more">
+            <MButton color="transparent" @click="handleMore">
+                <div class="more-btn">Подробнее</div>
+            </MButton>
+        </div>
 
         <div class="meal-card__actions">
             <slot name="actions"></slot>
         </div>
+
+        <MModal v-model="modalState.more">
+            <div class="product-list">
+                <div
+                    v-for="product of meal.product_list"
+                    :key="product.id"
+                    class="product-list__item"
+                >
+                    <div class="product-list__image">
+                        <img :src="product.image" :alt="product.name" />
+                    </div>
+                    {{ product.name }}
+                </div>
+            </div>
+        </MModal>
     </div>
 </template>
 
 <script setup>
+import { reactive } from 'vue'
+import MButton from '../ui/MButton.vue'
+import MModal from '../ui/MModal.vue'
+
 defineProps({
     meal: { type: Object, required: true }
 })
+
+const modalState = reactive({
+    more: false
+})
+
+const toggleModal = (key) => {
+    modalState[key] = !modalState[key]
+}
+
+const handleMore = () => {
+    toggleModal('more')
+}
 </script>
 
 <style scoped lang="scss">
@@ -83,6 +119,45 @@ defineProps({
             border-radius: 5px;
             color: $dark;
         }
+    }
+
+    .product-list {
+        &__item {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        &__item:last-child {
+            margin-bottom: 0;
+        }
+        &__image {
+            display: flex;
+            width: 45px;
+            height: 40px;
+            flex: 0 0 45px;
+
+            img {
+                display: block;
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+}
+
+.more-btn {
+    font-size: 16px;
+    line-height: 125%;
+    font-size: 14px;
+    text-decoration: underline;
+    color: $gray;
+
+    &:hover {
+        color: $dark;
+        text-decoration: none;
     }
 }
 </style>

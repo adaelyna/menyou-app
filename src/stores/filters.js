@@ -43,6 +43,8 @@ export const useFiltersStore = defineStore('filters', () => {
             .then(({ data }) => {
                 filters.value = [...filters.value, data.filter]
                 total.value++
+
+                return data
             })
             .finally(() => {
                 buttonsLoading.add = false
