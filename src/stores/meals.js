@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { reactive, ref } from 'vue'
 
 import mealsApi from '../api/meals'
+import { parseListObjectToIds } from '../helpers/parseData'
 
 export const useMealsStore = defineStore('meals', () => {
     const isLoading = ref(false)
@@ -35,25 +36,11 @@ export const useMealsStore = defineStore('meals', () => {
             })
     }
 
-    const addMeal = (form) => {
+    const addMeal = async (form) => {
         buttonsLoading.add = true
-        const parsedProductList = []
-        const parsedFilterList = []
 
-        form.product_list.forEach((product) => {
-            if (typeof product === 'object') {
-                parsedProductList.push(product.id)
-            }
-        })
-
-        form.filter_list.forEach((filter) => {
-            if (typeof filter === 'object') {
-                parsedFilterList.push(filter.id)
-            }
-        })
-
-        form.filter_list = [...parsedFilterList]
-        form.product_list = [...parsedProductList]
+        form.filter_list = parseListObjectToIds(form.filter_list)
+        form.product_list = parseListObjectToIds(form.product_list)
 
         return mealsApi
             .addMeal(form)
@@ -66,25 +53,11 @@ export const useMealsStore = defineStore('meals', () => {
             })
     }
 
-    const updateMeal = (mealId, form) => {
+    const updateMeal = async (mealId, form) => {
         buttonsLoading.edit = true
-        const parsedProductList = []
-        const parsedFilterList = []
 
-        form.product_list.forEach((product) => {
-            if (typeof product === 'object') {
-                parsedProductList.push(product.id)
-            }
-        })
-
-        form.filter_list.forEach((filter) => {
-            if (typeof filter === 'object') {
-                parsedFilterList.push(filter.id)
-            }
-        })
-
-        form.filter_list = [...parsedFilterList]
-        form.product_list = [...parsedProductList]
+        form.filter_list = parseListObjectToIds(form.filter_list)
+        form.product_list = parseListObjectToIds(form.product_list)
 
         return mealsApi
             .editMeal(mealId, form)
@@ -104,7 +77,7 @@ export const useMealsStore = defineStore('meals', () => {
             })
     }
 
-    const deleteMeal = (mealId) => {
+    const deleteMeal = async (mealId) => {
         buttonsLoading.delete = true
 
         return mealsApi

@@ -1,7 +1,7 @@
 <template>
     <div class="select">
         <div :class="['select__header', { isOpen }]" @click="toggleSelect">
-            <span>{{ modelValue[0]?.name || selectedItem?.name || placeholder }}</span>
+            <span>{{ modelValue?.name || placeholder }}</span>
             <img src="@/assets/images/arrow-down.svg" alt="Down" />
         </div>
         <div v-show="isOpen" class="select__content">
@@ -18,7 +18,7 @@
 import { ref } from 'vue'
 
 defineProps({
-    modelValue: { type: Array, required: true },
+    modelValue: { type: Object, required: true },
     placeholder: { type: String, required: false, default: 'Выберите' },
     items: { type: Array, required: false, default: () => [] }
 })
@@ -26,17 +26,15 @@ defineProps({
 const emit = defineEmits(['update:modelValue'])
 
 const isOpen = ref(false)
-const selectedItem = ref(null)
 
 const toggleSelect = () => {
     isOpen.value = !isOpen.value
 }
 
 const select = (item) => {
-    selectedItem.value = item
     isOpen.value = false
 
-    emit('update:modelValue', [item.id])
+    emit('update:modelValue', item)
 }
 </script>
 

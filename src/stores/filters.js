@@ -35,7 +35,7 @@ export const useFiltersStore = defineStore('filters', () => {
             })
     }
 
-    const addFilter = (form) => {
+    const addFilter = async (form) => {
         buttonsLoading.add = true
 
         return filtersApi
@@ -51,7 +51,7 @@ export const useFiltersStore = defineStore('filters', () => {
             })
     }
 
-    const updateFilter = (filterId, form) => {
+    const updateFilter = async (filterId, form) => {
         buttonsLoading.edit = true
 
         return filtersApi
@@ -73,7 +73,7 @@ export const useFiltersStore = defineStore('filters', () => {
             })
     }
 
-    const deleteFilter = (filterId) => {
+    const deleteFilter = async (filterId) => {
         buttonsLoading.delete = true
 
         return filtersApi

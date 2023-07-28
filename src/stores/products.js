@@ -35,7 +35,7 @@ export const useProductsStore = defineStore('products', () => {
             })
     }
 
-    const addProduct = (form) => {
+    const addProduct = async (form) => {
         buttonsLoading.add = true
 
         return productsApi
@@ -49,7 +49,7 @@ export const useProductsStore = defineStore('products', () => {
             })
     }
 
-    const updateProduct = (productId, form) => {
+    const updateProduct = async (productId, form) => {
         buttonsLoading.edit = true
 
         return productsApi
@@ -74,7 +74,7 @@ export const useProductsStore = defineStore('products', () => {
             })
     }
 
-    const deleteProduct = (productId) => {
+    const deleteProduct = async (productId) => {
         buttonsLoading.delete = true
 
         return productsApi

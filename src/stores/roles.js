@@ -35,7 +35,7 @@ export const useRolesStore = defineStore('roles', () => {
             })
     }
 
-    const addRole = (form) => {
+    const addRole = async (form) => {
         buttonsLoading.add = true
 
         return rolesApi
@@ -49,7 +49,7 @@ export const useRolesStore = defineStore('roles', () => {
             })
     }
 
-    const updateRole = (roleId, form) => {
+    const updateRole = async (roleId, form) => {
         buttonsLoading.edit = true
 
         return rolesApi
@@ -72,7 +72,7 @@ export const useRolesStore = defineStore('roles', () => {
             })
     }
 
-    const deleteRole = (roleId) => {
+    const deleteRole = async (roleId) => {
         buttonsLoading.delete = true
 
         return rolesApi
