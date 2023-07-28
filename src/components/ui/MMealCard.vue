@@ -7,7 +7,7 @@
         <h4 class="meal-card__title">{{ meal.name }}</h4>
         <p class="meal-card__desc">{{ meal.description }}</p>
         <div class="filter-list">
-            <div v-for="filter of meal.filter_list" :key="filter.name" class="filter-list__filters">
+            <div v-for="filter of meal.filter_list" :key="filter.name" class="filter-list__item">
                 {{ filter.name }}
             </div>
         </div>
@@ -108,12 +108,13 @@ const handleMore = () => {
         justify-content: flex-end;
         gap: 12px;
     }
+
     .filter-list {
         display: flex;
         justify-content: flex-start;
         gap: 5px;
 
-        &__filters {
+        &__item {
             background-color: $gray-light;
             padding: 3px 5px;
             border-radius: 5px;
@@ -128,10 +129,12 @@ const handleMore = () => {
             justify-content: flex-start;
             gap: 10px;
             margin-bottom: 10px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
-        &__item:last-child {
-            margin-bottom: 0;
-        }
+
         &__image {
             display: flex;
             width: 45px;

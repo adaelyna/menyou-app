@@ -107,6 +107,7 @@ const removeItem = (item) => {
         &.placeholder {
             color: rgb(144, 144, 144);
         }
+        
         &.error {
             border: 1px solid $red;
         }
