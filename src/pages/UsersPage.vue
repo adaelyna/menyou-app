@@ -52,7 +52,7 @@
                     <MInput v-model="form.firstname" placeholder="Имя" />
                     <MInput v-model="form.lastname" placeholder="Фамилия" />
                     <MInput v-model="form.image" placeholder="Аватарка" />
-                    <MSelect v-model="form.role_list" :items="rolesStore.roles" />
+                    <MMultiSelect v-model="form.role_list" :items="rolesStore.roles" />
                     <MButton color="primary" :loading="buttonsLoading.add" @click="submitAdd">
                         Сохранить
                     </MButton>
@@ -65,7 +65,7 @@
                     <MInput v-model="form.firstname" placeholder="Имя" />
                     <MInput v-model="form.lastname" placeholder="Фамилия" />
                     <MInput v-model="form.image" placeholder="Аватарка" />
-                    <MSelect v-model="form.role_list" :items="rolesStore.roles" />
+                    <MMultiSelect v-model="form.role_list" :items="rolesStore.roles" />
                     <MButton color="primary" :loading="buttonsLoading.edit" @click="submitEdit">
                         Сохранить
                     </MButton>
@@ -137,7 +137,7 @@ import MLoader from '@/components/ui/MLoader.vue'
 import MButton from '../components/ui/MButton.vue'
 import MModal from '@/components/ui/MModal.vue'
 import MInput from '@/components/ui/MInput.vue'
-import MSelect from '../components/ui/MSelect.vue'
+import MMultiSelect from '@/components/ui/MMultiSelect.vue'
 
 const usersStore = useUsersStore()
 const rolesStore = useRolesStore()

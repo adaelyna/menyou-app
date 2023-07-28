@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { reactive, ref } from 'vue'
 
 import usersApi from '../api/users'
+import { parseListObjectToIds } from '../helpers/parseData'
 
 export const useUsersStore = defineStore('users', () => {
     const isLoading = ref(false)
@@ -35,8 +36,10 @@ export const useUsersStore = defineStore('users', () => {
             })
     }
 
-    const addUser = (form) => {
+    const addUser = async (form) => {
         buttonsLoading.add = true
+
+        form.role_list = parseListObjectToIds(form.role_list)
 
         return usersApi
             .addUser(form)
@@ -49,16 +52,11 @@ export const useUsersStore = defineStore('users', () => {
             })
     }
 
-    const updateUser = (userId, form) => {
+    const updateUser = async (userId, form) => {
         buttonsLoading.edit = true
         delete form.password
 
-        form.role_list.forEach((role) => {
-            if (typeof role === 'object') {
-                form.role_list = []
-                form.role_list.push(role.id)
-            }
-        })
+        form.role_list = parseListObjectToIds(form.role_list)
 
         return usersApi
             .updateUser(userId, form)
@@ -78,7 +76,7 @@ export const useUsersStore = defineStore('users', () => {
             })
     }
 
-    const deleteUser = (userId) => {
+    const deleteUser = async (userId) => {
         buttonsLoading.delete = true
 
         return usersApi
