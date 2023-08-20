@@ -6,6 +6,10 @@
                 <MButton color="primary" @click="handleAdd">Добавить</MButton>
             </div>
 
+            <div v-if="mealsStore.isSorting" class="reset-filters">
+                <MButton color="warning" size="small" @click="handleReset">Сбросить фильтры</MButton>
+            </div>
+
             <MLoader v-if="mealsStore.isLoading" />
 
             <div v-if="mealsStore.meals" class="meals-list">
@@ -217,6 +221,10 @@ const handleDelete = (meal) => {
     toggleModal('delete')
 }
 
+const handleReset = () => {
+    mealsStore.resetMeals()
+}
+
 onMounted(() => {
     mealsStore.getMeals()
     productsStore.getProducts()
@@ -254,5 +262,10 @@ onMounted(() => {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+.reset-filters {
+    display: flex;
+    justify-content: center;
 }
 </style>

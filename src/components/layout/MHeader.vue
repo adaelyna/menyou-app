@@ -13,7 +13,7 @@
                         <RouterLink :to="{ name: 'meals' }">Meals</RouterLink>
                     </li>
                     <li>
-                        <a href="#" class="header-menu__link">Order</a>
+                        <RouterLink :to="{ name: 'orders' }">Orders</RouterLink>
                     </li>
                     <template v-if="user.is_admin">
                         <li class="admin-menu">

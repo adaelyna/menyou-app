@@ -8,6 +8,8 @@ export const useMealsStore = defineStore('meals', () => {
     const isLoading = ref(false)
     const total = ref(0)
     const meals = ref(null)
+    const mealsTemp = ref([])
+    const isSorting = ref(false)
     const buttonsLoading = reactive({
         add: false,
         edit: false,
@@ -90,15 +92,42 @@ export const useMealsStore = defineStore('meals', () => {
             })
     }
 
+    const sortMealsByFilter = (filterId) => {
+        const sortedMeals = []
+
+        isSorting.value = true
+        mealsTemp.value = [...meals.value]
+
+        meals.value.forEach((meal) => {
+            meal.filter_list.forEach((filter) => {
+                if (filter.id === filterId) {
+                    sortedMeals.push(meal)
+                }
+            })
+        })
+
+        meals.value = [...sortedMeals]
+    }
+
+    const resetMeals = () => {
+        isSorting.value = false
+
+        meals.value = [...mealsTemp.value]
+        mealsTemp.value = []
+    }
 
     return {
         isLoading,
         buttonsLoading,
         total,
         meals,
+        isSorting,
+        mealsTemp,
         getMeals,
         addMeal,
         updateMeal,
-        deleteMeal
+        deleteMeal,
+        sortMealsByFilter,
+        resetMeals
     }
 })

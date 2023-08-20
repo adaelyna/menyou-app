@@ -7,10 +7,12 @@
         <h4 class="product-card__title">{{ product.name }}</h4>
         <p class="product-card__desc">{{ product.description }}</p>
 
-        <div v-if="!product.in_stock" class="out-of-stock">Нет в наличии</div>
+        <div class="product-card__footer">
+            <div v-if="!product.in_stock" class="out-of-stock">Нет в наличии</div>
 
-        <div class="product-card__actions">
-            <slot name="actions"></slot>
+            <div class="product-card__actions">
+                <slot name="actions"></slot>
+            </div>
         </div>
     </div>
 </template>
@@ -68,6 +70,11 @@ defineProps({
         align-items: center;
         justify-content: flex-end;
         gap: 12px;
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: space-between;
     }
 }
 

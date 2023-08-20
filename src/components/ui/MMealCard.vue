@@ -7,7 +7,12 @@
         <h4 class="meal-card__title">{{ meal.name }}</h4>
         <p class="meal-card__desc">{{ meal.description }}</p>
         <div class="filter-list">
-            <div v-for="filter of meal.filter_list" :key="filter.name" class="filter-list__item">
+            <div
+                v-for="filter of meal.filter_list"
+                :key="filter.name"
+                class="filter-list__item"
+                @click="handleSort(filter.id)"
+            >
                 {{ filter.name }}
             </div>
         </div>
@@ -42,13 +47,17 @@
 import { reactive } from 'vue'
 import MButton from '../ui/MButton.vue'
 import MModal from '../ui/MModal.vue'
+import { useMealsStore } from '@/stores/meals'
 
 defineProps({
     meal: { type: Object, required: true }
 })
 
+const mealsStore = useMealsStore()
+
 const modalState = reactive({
-    more: false
+    more: false,
+    sort: false
 })
 
 const toggleModal = (key) => {
@@ -57,6 +66,10 @@ const toggleModal = (key) => {
 
 const handleMore = () => {
     toggleModal('more')
+}
+
+const handleSort = (filterId) => {
+    mealsStore.sortMealsByFilter(filterId)
 }
 </script>
 
@@ -119,6 +132,7 @@ const handleMore = () => {
             padding: 3px 5px;
             border-radius: 5px;
             color: $dark;
+            cursor: pointer;
         }
     }
 
